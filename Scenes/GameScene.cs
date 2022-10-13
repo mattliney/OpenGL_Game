@@ -154,6 +154,9 @@ namespace OpenGL_Game.Scenes
                 case Key.M:
                     sceneManager.ChangeScene(SceneTypes.SCENE_MAIN_MENU);
                     break;
+                case Key.L:
+                    sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
+                    break;
             }
         }
     }

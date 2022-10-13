@@ -99,6 +99,12 @@ namespace OpenGL_Game.Managers
             scene = new MainMenuScene(this);
         }
 
+        public void GameOver()
+        {
+            if (scene != null) scene.Close();
+            scene = new GameOverScene(this);
+        }
+
         public static int WindowWidth
         {
             get { return width; }
@@ -130,6 +136,10 @@ namespace OpenGL_Game.Managers
             else if(pSceneType == SceneTypes.SCENE_GAME)
             {
                 StartNewGame();
+            }
+            else if (pSceneType == SceneTypes.SCENE_GAME_OVER)
+            {
+                GameOver();
             }
         }
     }
