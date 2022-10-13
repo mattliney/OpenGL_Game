@@ -2,6 +2,14 @@
 
 namespace OpenGL_Game.Scenes
 {
+    enum SceneTypes
+    {
+        SCENE_NONE,
+        SCENE_MAIN_MENU,
+        SCENE_GAME,
+        SCENE_GAME_OVER
+    }
+
     interface IScene
     {
         void Render(FrameEventArgs e);

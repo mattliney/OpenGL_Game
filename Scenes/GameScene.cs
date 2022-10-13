@@ -132,6 +132,7 @@ namespace OpenGL_Game.Scenes
         public override void Close()
         {
             sceneManager.keyboardDownDelegate -= Keyboard_KeyDown;
+            ResourceManager.RemoveAllAssets();
         }
 
         public void Keyboard_KeyDown(KeyboardKeyEventArgs e)
@@ -151,7 +152,7 @@ namespace OpenGL_Game.Scenes
                     camera.RotateY(0.01f);
                     break;
                 case Key.M:
-                    sceneManager.StartMenu();
+                    sceneManager.ChangeScene(SceneTypes.SCENE_MAIN_MENU);
                     break;
             }
         }

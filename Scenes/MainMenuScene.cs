@@ -9,6 +9,7 @@ namespace OpenGL_Game.Scenes
 {
     class MainMenuScene : Scene
     {
+
         public MainMenuScene(SceneManager sceneManager) : base(sceneManager)
         {
             // Set the title of the window
@@ -47,7 +48,7 @@ namespace OpenGL_Game.Scenes
             switch (e.Button)
             {
                 case MouseButton.Left:
-                    sceneManager.StartNewGame();
+                    sceneManager.ChangeScene(SceneTypes.SCENE_GAME);
                     break;
             }
         }

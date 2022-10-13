@@ -9,6 +9,7 @@ namespace OpenGL_Game.Managers
     class SceneManager : GameWindow
     {
         Scene scene;
+        SceneTypes sceneType = SceneTypes.SCENE_NONE;
         public static int width = 1200, height = 800;
         public static int windowXPos = 200, windowYPos = 80;
 
@@ -118,6 +119,18 @@ namespace OpenGL_Game.Managers
 
             //Load the GUI
             GUI.SetUpGUI(Width, Height);
+        }
+
+        public void ChangeScene(SceneTypes pSceneType)
+        {
+            if(pSceneType == SceneTypes.SCENE_MAIN_MENU)
+            {
+                StartMenu();
+            }
+            else if(pSceneType == SceneTypes.SCENE_GAME)
+            {
+                StartNewGame();
+            }
         }
     }
 
