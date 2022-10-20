@@ -77,6 +77,7 @@ namespace OpenGL_Game.Scenes
 
             newEntity = new Entity("coolSkull");
             newEntity.AddComponent(new ComponentPosition(0.0f, 1.0f, 0.0f));
+            newEntity.AddComponent(new ComponentVelocity(0.5f, 0.5f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry(
                 "Geometry/skull/skull.obj"));
             entityManager.AddEntity(newEntity);
