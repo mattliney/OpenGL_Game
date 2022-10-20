@@ -88,6 +88,8 @@ namespace OpenGL_Game.Scenes
 
             newSystem = new SystemRender();
             systemManager.AddSystem(newSystem);
+            newSystem = new SystemPhysics();
+            systemManager.AddSystem(newSystem);
         }
 
         /// <summary>

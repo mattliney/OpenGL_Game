@@ -145,6 +145,7 @@
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Managers\SystemManager.cs" />
+    <Compile Include="Systems\SystemPhysics.cs" />
     <Compile Include="Systems\SystemRender.cs" />
   </ItemGroup>
   <ItemGroup>
