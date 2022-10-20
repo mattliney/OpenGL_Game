@@ -81,6 +81,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="Components\ComponentVelocity.cs" />
     <Compile Include="OBJLoader\CjClutter.ObjLoader.Loader\Common\StringExtensions.cs" />
     <Compile Include="OBJLoader\CjClutter.ObjLoader.Loader\Data\DataStore\DataStore.cs" />
     <Compile Include="OBJLoader\CjClutter.ObjLoader.Loader\Data\DataStore\IDataStore.cs" />
