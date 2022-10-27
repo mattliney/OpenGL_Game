@@ -9,7 +9,6 @@ namespace OpenGL_Game.Scenes
 {
     class MainMenuScene : Scene
     {
-
         public MainMenuScene(SceneManager sceneManager) : base(sceneManager)
         {
             // Set the title of the window
@@ -19,6 +18,8 @@ namespace OpenGL_Game.Scenes
             sceneManager.updater = Update;
 
             sceneManager.mouseDelegate += Mouse_BottonPressed;
+
+            InputManager im = new InputManager();
         }
 
         public override void Update(FrameEventArgs e)
