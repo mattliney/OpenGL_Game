@@ -77,11 +77,6 @@ namespace OpenGL_Game.Systems
 
         public void Motion(ComponentPosition pPosition, ComponentVelocity pVelocity)
         {
-            GL.UseProgram(pgmID);
-
-            GL.Uniform1(uniform_stex, 0);
-            GL.ActiveTexture(TextureUnit.Texture0);
-
             Vector3 oldPos = pPosition.Position;
             Vector3 velocity = pVelocity.Velocity;
             Vector3 newPos = oldPos + velocity * GameScene.dt;
