@@ -224,6 +224,7 @@
     <None Include="Controls\MainMenuControls.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Controls\GameControls.txt" />
     <Content Include="Geometry\Default\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

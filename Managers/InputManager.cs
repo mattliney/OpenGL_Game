@@ -32,6 +32,13 @@ namespace OpenGL_Game.Managers
                     HandleInput(kvp, pCamera, pSceneManager);
                 }
             }
+            foreach(KeyValuePair<MouseButton, string> kvp in mouseBinds)
+            {
+                if (ms.IsButtonDown(kvp.Key))
+                {
+                    HandleInput(kvp, pCamera, pSceneManager);
+                }
+            }
 
         }
 
