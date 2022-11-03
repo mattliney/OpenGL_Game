@@ -221,9 +221,9 @@
     <Content Include="Audio\buzz.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Controls\MainMenuControls.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Controls\MainMenuControls.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Geometry\Default\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

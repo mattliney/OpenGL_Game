@@ -18,6 +18,7 @@ namespace OpenGL_Game.Scenes
         public static float dt = 0;
         EntityManager entityManager;
         SystemManager systemManager;
+        InputManager inputManager;
 
         public Camera camera;
 
@@ -30,6 +31,7 @@ namespace OpenGL_Game.Scenes
             gameInstance = this;
             entityManager = new EntityManager();
             systemManager = new SystemManager();
+            inputManager = new InputManager();
 
             // Set the title of the window
             sceneManager.Title = "Game";
@@ -109,32 +111,7 @@ namespace OpenGL_Game.Scenes
             if (GamePad.GetState(1).Buttons.Back == ButtonState.Pressed)
                 sceneManager.Exit();
 
-
-            //Big IF statement for updating on button presses.
-            if(keyPressed[(char)Key.Up])
-            {
-                camera.MoveForward(0.1f);
-            }
-            if(keyPressed[(char)Key.Right])
-            {
-                camera.RotateY(0.01f);
-            }
-            if (keyPressed[(char)Key.Down])
-            {
-                camera.MoveForward(-0.1f);
-            }
-            if (keyPressed[(char)Key.Left])
-            {
-                camera.RotateY(-0.01f);
-            }
-            if(keyPressed[(char)Key.M])
-            {
-                sceneManager.ChangeScene(SceneTypes.SCENE_MAIN_MENU);
-            }
-            if (keyPressed[(char)Key.L])
-            {
-                sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
-            }
+            inputManager.ProcessInputs(sceneManager, camera);
 
             // TODO: Add your update logic here
 

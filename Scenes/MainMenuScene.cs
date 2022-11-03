@@ -9,6 +9,8 @@ namespace OpenGL_Game.Scenes
 {
     class MainMenuScene : Scene
     {
+        InputManager im;
+
         public MainMenuScene(SceneManager sceneManager) : base(sceneManager)
         {
             // Set the title of the window
@@ -17,13 +19,12 @@ namespace OpenGL_Game.Scenes
             sceneManager.renderer = Render;
             sceneManager.updater = Update;
 
-            sceneManager.mouseDelegate += Mouse_BottonPressed;
-
-            InputManager im = new InputManager();
+            im = new InputManager("Controls/MainMenuControls.txt");
         }
 
         public override void Update(FrameEventArgs e)
         {
+            im.ProcessInputs(sceneManager, null);
         }
 
         public override void Render(FrameEventArgs e)
@@ -44,19 +45,8 @@ namespace OpenGL_Game.Scenes
             GUI.Render();
         }
 
-        public void Mouse_BottonPressed(MouseButtonEventArgs e)
-        {
-            switch (e.Button)
-            {
-                case MouseButton.Left:
-                    sceneManager.ChangeScene(SceneTypes.SCENE_GAME);
-                    break;
-            }
-        }
-
         public override void Close()
         {
-            sceneManager.mouseDelegate -= Mouse_BottonPressed;
         }
     }
 }
