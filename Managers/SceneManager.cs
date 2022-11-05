@@ -24,6 +24,7 @@ namespace OpenGL_Game.Managers
         public delegate void MouseDelegate(MouseButtonEventArgs e);
         public MouseDelegate mouseDelegate;
 
+        public InputManager inputManager = new InputManager();
 
         public SceneManager() : base(width, height, new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(8, 8, 8, 8), 16))
         {
@@ -129,6 +130,7 @@ namespace OpenGL_Game.Managers
 
         public void ChangeScene(SceneTypes pSceneType)
         {
+            inputManager.ClearBinds();
             if(pSceneType == SceneTypes.SCENE_MAIN_MENU)
             {
                 StartMenu();

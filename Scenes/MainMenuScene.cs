@@ -9,7 +9,6 @@ namespace OpenGL_Game.Scenes
 {
     class MainMenuScene : Scene
     {
-        InputManager im;
 
         public MainMenuScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -19,12 +18,12 @@ namespace OpenGL_Game.Scenes
             sceneManager.renderer = Render;
             sceneManager.updater = Update;
 
-            im = new InputManager("Controls/MainMenuControls.txt");
+            sceneManager.inputManager.ReadFromFile("Controls/MainMenuControls.txt");
         }
 
         public override void Update(FrameEventArgs e)
         {
-            im.ProcessInputs(sceneManager, null);
+            sceneManager.inputManager.ProcessInputs(sceneManager, null);
         }
 
         public override void Render(FrameEventArgs e)

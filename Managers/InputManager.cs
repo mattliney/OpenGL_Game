@@ -13,12 +13,7 @@ namespace OpenGL_Game.Managers
         Dictionary<Key, string> keyboardBinds = new Dictionary<Key, string>();
         Dictionary<MouseButton, string> mouseBinds = new Dictionary<MouseButton, string>();
 
-        public InputManager() { DefaultBinds(); }
-
-        public InputManager(string pFileName)
-        {
-            ReadFromFile(pFileName);
-        }
+        public InputManager() {  }
 
         public void ProcessInputs(SceneManager pSceneManager, Camera pCamera)
         {
@@ -29,23 +24,23 @@ namespace OpenGL_Game.Managers
             {
                 if(ks.IsKeyDown(kvp.Key))
                 {
-                    HandleInput(kvp, pCamera, pSceneManager);
+                    HandleInput(kvp.Value, pCamera, pSceneManager);
                 }
             }
-            foreach(KeyValuePair<MouseButton, string> kvp in mouseBinds)
+            foreach (KeyValuePair<MouseButton, string> kvp in mouseBinds)
             {
                 if (ms.IsButtonDown(kvp.Key))
                 {
-                    HandleInput(kvp, pCamera, pSceneManager);
+                    HandleInput(kvp.Value, pCamera, pSceneManager);
                 }
             }
 
         }
 
-        private void HandleInput(KeyValuePair <Key, string> pKVP, Camera pCamera, SceneManager pSceneManager)
+        private void HandleInput(string pValue, Camera pCamera, SceneManager pSceneManager)
         {
-            string commandType = pKVP.Value.Split('_')[0];
-            string commandInstruction = pKVP.Value.Split('_')[1];
+            string commandType = pValue.Split('_')[0];
+            string commandInstruction = pValue.Split('_')[1];
 
             if(commandType == "CAMERA")
             {
@@ -67,7 +62,7 @@ namespace OpenGL_Game.Managers
             }
         }
 
-        private void DefaultBinds()
+        public void DefaultBinds()
         {
             keyboardBinds.Add(Key.Up, "CAMERA_FORWARD");
             keyboardBinds.Add(Key.Right, "CAMERA_RIGHT");
@@ -79,11 +74,11 @@ namespace OpenGL_Game.Managers
 
         public void ClearBinds()
         {
-            keyboardBinds.Clear();
-            mouseBinds.Clear();
+            keyboardBinds = new Dictionary<Key, string>();
+            mouseBinds = new Dictionary<MouseButton, string>();
         }
 
-        private void ReadFromFile(string pFileName)
+        public void ReadFromFile(string pFileName)
         {
             StreamReader sr = new StreamReader(pFileName);
             string line = sr.ReadLine();
@@ -100,6 +95,20 @@ namespace OpenGL_Game.Managers
                     Enum.TryParse(lineSplit[0], out key);
 
                     keyboardBinds.Add(key, lineSplit[1]);
+                    line = sr.ReadLine();
+                }
+            }
+            if (line == "MOUSE")
+            {
+                line = sr.ReadLine();
+                while (line != null && line != "KEYBOARD")
+                {
+                    lineSplit = line.Split('=');
+
+                    MouseButton mb;
+                    Enum.TryParse(lineSplit[0], out mb);
+
+                    mouseBinds.Add(mb, lineSplit[1]);
                     line = sr.ReadLine();
                 }
             }

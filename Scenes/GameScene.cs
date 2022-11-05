@@ -18,7 +18,6 @@ namespace OpenGL_Game.Scenes
         public static float dt = 0;
         EntityManager entityManager;
         SystemManager systemManager;
-        InputManager inputManager;
 
         public Camera camera;
 
@@ -31,7 +30,7 @@ namespace OpenGL_Game.Scenes
             gameInstance = this;
             entityManager = new EntityManager();
             systemManager = new SystemManager();
-            inputManager = new InputManager();
+            sceneManager.inputManager.ReadFromFile("Controls/GameControls.txt");
 
             // Set the title of the window
             sceneManager.Title = "Game";
@@ -111,7 +110,7 @@ namespace OpenGL_Game.Scenes
             if (GamePad.GetState(1).Buttons.Back == ButtonState.Pressed)
                 sceneManager.Exit();
 
-            inputManager.ProcessInputs(sceneManager, camera);
+            sceneManager.inputManager.ProcessInputs(sceneManager, camera);
 
             // TODO: Add your update logic here
 
