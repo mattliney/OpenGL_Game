@@ -12,7 +12,7 @@ namespace OpenGL_Game.Systems
 {
     class SystemRender : ISystem
     {
-        const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_GEOMETRY);
+        const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_GEOMETRY | ComponentTypes.COMPONENT_SHADER);
 
         protected int pgmID;
         protected int vsID;

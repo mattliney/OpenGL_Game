@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using OpenTK.Graphics.OpenGL;
 using OpenGL_Game.OBJLoader;
+using System.IO;
 
 namespace OpenGL_Game.Managers
 {
@@ -11,6 +12,7 @@ namespace OpenGL_Game.Managers
     {
         static Dictionary<string, Geometry> geometryDictionary = new Dictionary<string, Geometry>();
         static Dictionary<string, int> textureDictionary = new Dictionary<string, int>();
+        static Dictionary<string, int> shaderDictionary = new Dictionary<string, int>();
 
         public static void RemoveAllAssets()
         {
@@ -40,6 +42,24 @@ namespace OpenGL_Game.Managers
             return geometry;
         }
       
+        public static int LoadShader(string pFileName, ShaderType pType)
+        {
+            int shader;
+            shaderDictionary.TryGetValue(pFileName, out shader);
+            if(shader == 0)
+            {
+                shader = GL.CreateShader(pType);
+                using (StreamReader sr = new StreamReader(pFileName))
+                {
+                    GL.ShaderSource(shader, sr.ReadToEnd());
+                }
+                GL.CompileShader(shader);
+                Console.WriteLine(GL.GetShaderInfoLog(shader));
+                shaderDictionary.Add(pFileName, shader);
+            }
+
+            return shader;
+        }
 
         public static int LoadTexture(string filename)
         {
