@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Components\ComponentShader.cs" />
+    <Compile Include="Components\ComponentShaderDefault.cs" />
     <Compile Include="Components\ComponentVelocity.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="OBJLoader\CjClutter.ObjLoader.Loader\Common\StringExtensions.cs" />

@@ -8,15 +8,15 @@ namespace OpenGL_Game.Components
 {
     abstract class ComponentShader : IComponent
     {
-        public int mShaderID;
+        public int mPGMID;
 
         public ComponentShader(string pVertexShaderName, string pFragmentShaderName)
         {
-            mShaderID = GL.CreateProgram();
-            GL.AttachShader(mShaderID, ResourceManager.LoadShader(pVertexShaderName, ShaderType.VertexShader));
-            GL.AttachShader(mShaderID, ResourceManager.LoadShader(pFragmentShaderName, ShaderType.FragmentShader));
-            GL.LinkProgram(mShaderID);
-            Console.WriteLine(GL.GetProgramInfoLog(mShaderID));
+            mPGMID = GL.CreateProgram();
+            GL.AttachShader(mPGMID, ResourceManager.LoadShader(pVertexShaderName, ShaderType.VertexShader));
+            GL.AttachShader(mPGMID, ResourceManager.LoadShader(pFragmentShaderName, ShaderType.FragmentShader));
+            GL.LinkProgram(mPGMID);
+            Console.WriteLine(GL.GetProgramInfoLog(mPGMID));
         }
 
         public abstract void ApplyShader(Matrix4 pModel, Geometry pGeometry);
