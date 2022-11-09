@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Components\ComponentShader.cs" />
+    <Compile Include="Components\ComponentShaderNoLights.cs" />
     <Compile Include="Components\ComponentShaderDefault.cs" />
     <Compile Include="Components\ComponentVelocity.cs" />
     <Compile Include="Managers\InputManager.cs" />
@@ -190,6 +191,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\fs.nolights.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Shaders\fs.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
