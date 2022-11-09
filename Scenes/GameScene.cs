@@ -37,9 +37,6 @@ namespace OpenGL_Game.Scenes
             // Set the Render and Update delegates to the Update and Render methods of this class
             sceneManager.renderer = Render;
             sceneManager.updater = Update;
-            // Set Keyboard events to go to a method in this class
-            sceneManager.keyboardDownDelegate += Keyboard_KeyDown;
-            sceneManager.keyboardUpDelegate += Keyboard_KeyUp;
 
             // Enable Depth Testing
             GL.Enable(EnableCap.DepthTest);
@@ -140,18 +137,7 @@ namespace OpenGL_Game.Scenes
         /// </summary>
         public override void Close()
         {
-            sceneManager.keyboardDownDelegate -= Keyboard_KeyDown;
             ResourceManager.RemoveAllAssets();
-        }
-
-        public void Keyboard_KeyDown(KeyboardKeyEventArgs e)
-        {
-            keyPressed[(char)e.Key] = true;
-        }
-
-        public void Keyboard_KeyUp(KeyboardKeyEventArgs e)
-        {
-            keyPressed[(char)e.Key] = false;
         }
     }
 }

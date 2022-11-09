@@ -131,7 +131,7 @@ namespace OpenGL_Game.Managers
         public void ChangeScene(SceneTypes pSceneType)
         {
             inputManager.ClearBinds();
-            if(pSceneType == SceneTypes.SCENE_MAIN_MENU)
+            if (pSceneType == SceneTypes.SCENE_MAIN_MENU)
             {
                 StartMenu();
             }
