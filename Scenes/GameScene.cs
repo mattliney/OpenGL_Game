@@ -69,22 +69,17 @@ namespace OpenGL_Game.Scenes
             newEntity.AddComponent(new ComponentShaderNoLights());
             entityManager.AddEntity(newEntity);
 
-            newEntity = new Entity("Moon1");
-            newEntity.AddComponent(new ComponentPosition(2.0f, 0.0f, 0.0f));
-            newEntity.AddComponent(new ComponentGeometry("Geometry/Moon/moon.obj"));
-            newEntity.AddComponent(new ComponentShaderDefault());
-            entityManager.AddEntity(newEntity);
-
             newEntity = new Entity("Wraith_Raider_Starship");
             newEntity.AddComponent(new ComponentPosition(2.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/Wraith_Raider_Starship/Wraith_Raider_Starship.obj"));
-            //newEntity.AddComponent(new ComponentShaderDefault());
+            newEntity.AddComponent(new ComponentShaderDefault());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Intergalactic_Spaceship");
             newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry(
                 "Geometry/Intergalactic_Spaceship/Intergalactic_Spaceship.obj"));
+            newEntity.AddComponent(new ComponentShaderDefault());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("coolSkull");
@@ -92,6 +87,8 @@ namespace OpenGL_Game.Scenes
             newEntity.AddComponent(new ComponentVelocity(0.5f, 0.5f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry(
                 "Geometry/skull/skull.obj"));
+            newEntity.AddComponent(new ComponentShaderDefault());
+            newEntity.AddComponent(new ComponentAudio("Audio/buzz.wav"));
             entityManager.AddEntity(newEntity);
         }
 
@@ -102,6 +99,8 @@ namespace OpenGL_Game.Scenes
             newSystem = new SystemRender();
             systemManager.AddSystem(newSystem);
             newSystem = new SystemPhysics();
+            systemManager.AddSystem(newSystem);
+            newSystem = new SystemAudio();
             systemManager.AddSystem(newSystem);
         }
 
@@ -148,6 +147,7 @@ namespace OpenGL_Game.Scenes
         /// </summary>
         public override void Close()
         {
+
             ResourceManager.RemoveAllAssets();
         }
     }

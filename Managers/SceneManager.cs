@@ -3,6 +3,8 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using OpenGL_Game.Scenes;
+using OpenTK.Audio.OpenAL;
+using OpenTK.Audio;
 
 namespace OpenGL_Game.Managers
 {
@@ -25,9 +27,11 @@ namespace OpenGL_Game.Managers
         public MouseDelegate mouseDelegate;
 
         public InputManager inputManager = new InputManager();
+        public AudioContext audioContext;
 
         public SceneManager() : base(width, height, new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(8, 8, 8, 8), 16))
         {
+            audioContext = new AudioContext();
             this.X = windowXPos;
             this.Y = windowYPos;
         }
