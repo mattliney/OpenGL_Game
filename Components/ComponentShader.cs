@@ -25,5 +25,7 @@ namespace OpenGL_Game.Components
         {
             get { return ComponentTypes.COMPONENT_SHADER; }
         }
+
+        public void Close() { }
     }
 }

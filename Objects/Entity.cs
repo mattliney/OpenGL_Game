@@ -39,5 +39,13 @@ namespace OpenGL_Game.Objects
         {
             get { return componentList; }
         }
+
+        public void Close()
+        {
+            foreach(IComponent com in componentList)
+            {
+                com.Close();
+            }
+        }
     }
 }

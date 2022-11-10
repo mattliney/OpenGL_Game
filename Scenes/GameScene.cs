@@ -147,7 +147,10 @@ namespace OpenGL_Game.Scenes
         /// </summary>
         public override void Close()
         {
-
+            foreach(Entity e in entityManager.Entities())
+            {
+                e.Close();
+            }
             ResourceManager.RemoveAllAssets();
         }
     }

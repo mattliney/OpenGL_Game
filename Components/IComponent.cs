@@ -19,5 +19,7 @@ namespace OpenGL_Game.Components
         {
             get;
         }
+
+        void Close();
     }
 }

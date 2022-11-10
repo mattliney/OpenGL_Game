@@ -26,5 +26,7 @@ namespace OpenGL_Game.Components
         {
             get { return ComponentTypes.COMPONENT_POSITION; }
         }
+
+        public void Close() { }
     }
 }

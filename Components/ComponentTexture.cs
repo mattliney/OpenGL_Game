@@ -20,5 +20,7 @@ namespace OpenGL_Game.Components
         {
             get { return ComponentTypes.COMPONENT_TEXTURE; }
         }
+
+        public void Close() { }
     }
 }

@@ -21,5 +21,7 @@ namespace OpenGL_Game.Components
         {
             return geometry;
         }
+
+        public void Close() { }
     }
 }

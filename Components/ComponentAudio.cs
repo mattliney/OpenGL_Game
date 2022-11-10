@@ -30,5 +30,11 @@ namespace OpenGL_Game.Components
         {
             get { return ComponentTypes.COMPONENT_AUDIO; }
         }
+
+        public void Close()
+        {
+            AL.DeleteBuffer(mAudioBuffer);
+            AL.DeleteSource(mAudioSource);
+        }
     }
 }

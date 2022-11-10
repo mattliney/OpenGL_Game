@@ -26,5 +26,7 @@ namespace OpenGL_Game.Components
         {
             get { return ComponentTypes.COMPONENT_VELOCITY; }
         }
+
+        public void Close() { }
     }
 }
