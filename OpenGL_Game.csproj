@@ -85,6 +85,7 @@
     <Compile Include="Components\ComponentShader.cs" />
     <Compile Include="Components\ComponentShaderNoLights.cs" />
     <Compile Include="Components\ComponentShaderDefault.cs" />
+    <Compile Include="Components\ComponentCollisionSphere.cs" />
     <Compile Include="Components\ComponentVelocity.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="OBJLoader\CjClutter.ObjLoader.Loader\Common\StringExtensions.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Managers\SystemManager.cs" />
+    <Compile Include="Systems\SystemCollisionSphere.cs" />
     <Compile Include="Systems\SystemAudio.cs" />
     <Compile Include="Systems\SystemPhysics.cs" />
     <Compile Include="Systems\SystemRender.cs" />
