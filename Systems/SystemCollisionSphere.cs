@@ -24,31 +24,53 @@ namespace OpenGL_Game.Systems
             get { return "SystemCollision"; }
         }
 
-        public void OnAction(Entity entity)
+        public void OnAction(List<Entity> entities)
         {
-            if ((entity.Mask & MASK) == MASK)
+            foreach(Entity entity1 in entities)
             {
-                List<IComponent> components = entity.Components;
-
-                IComponent positionComponent = components.Find(delegate(IComponent component)
+                if ((entity1.Mask & MASK) == MASK)
                 {
-                    return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
-                });
-                ComponentPosition position = (ComponentPosition)positionComponent;
+                    List<IComponent> components1 = entity1.Components;
+                    ComponentPosition entity1Position;
+                    ComponentCollisionSphere entity1Sphere;
+                    RetrieveComponents(components1, out entity1Position, out entity1Sphere);
 
-                IComponent audioComponent = components.Find(delegate (IComponent component)
-                {
-                    return component.ComponentType == ComponentTypes.COMPONENT_COLLISION_SPHERE;
-                });
-                ComponentCollisionSphere sphere = (ComponentCollisionSphere)audioComponent;
+                    foreach(Entity entity2 in entities)
+                    {
+                        if(entity1 != entity2 && (entity2.Mask & MASK) == MASK)
+                        {
+                            List<IComponent> components2 = entity2.Components;
+                            ComponentPosition entity2Position;
+                            ComponentCollisionSphere entity2Sphere;
+                            RetrieveComponents(components2, out entity2Position, out entity2Sphere);
 
-                Collision(position, sphere);
+                            Collision(entity1Position, entity1Sphere, entity2Position, entity2Sphere);
+                        }
+                    }
+                }
             }
         }
 
-        public void Collision(ComponentPosition pPosition, ComponentCollisionSphere pSphere)
+        public void RetrieveComponents(List<IComponent> pComponents, out ComponentPosition position, out ComponentCollisionSphere sphere)
+        {
+            IComponent positionComponent = pComponents.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
+            });
+            position = (ComponentPosition)positionComponent;
+
+            IComponent audioComponent = pComponents.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_COLLISION_SPHERE;
+            });
+            sphere = (ComponentCollisionSphere)audioComponent;
+        }
+
+        public void Collision(ComponentPosition pEntity1Position, ComponentCollisionSphere pEntity1Sphere, ComponentPosition pEntity2Position, ComponentCollisionSphere pEntity2Sphere)
         {
             // do something
+            //tell collision manager (abstract). it will have a default response. (sphere sphere)
+            //what will actually happen is overloaded version of response will be in game specific collision manager. (shpere sphere) whatever
         }
     }
 }

@@ -24,25 +24,28 @@ namespace OpenGL_Game.Systems
             get { return "SystemAudio"; }
         }
 
-        public void OnAction(Entity entity)
+        public void OnAction(List<Entity> entities)
         {
-            if ((entity.Mask & MASK) == MASK)
+            foreach(Entity entity in entities)
             {
-                List<IComponent> components = entity.Components;
-
-                IComponent positionComponent = components.Find(delegate(IComponent component)
+                if ((entity.Mask & MASK) == MASK)
                 {
-                    return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
-                });
-                ComponentPosition position = (ComponentPosition)positionComponent;
+                    List<IComponent> components = entity.Components;
 
-                IComponent audioComponent = components.Find(delegate (IComponent component)
-                {
-                    return component.ComponentType == ComponentTypes.COMPONENT_AUDIO;
-                });
-                ComponentAudio audio = (ComponentAudio)audioComponent;
+                    IComponent positionComponent = components.Find(delegate (IComponent component)
+                    {
+                        return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
+                    });
+                    ComponentPosition position = (ComponentPosition)positionComponent;
 
-                PlayAudio(position, audio);
+                    IComponent audioComponent = components.Find(delegate (IComponent component)
+                    {
+                        return component.ComponentType == ComponentTypes.COMPONENT_AUDIO;
+                    });
+                    ComponentAudio audio = (ComponentAudio)audioComponent;
+
+                    PlayAudio(position, audio);
+                }
             }
         }
 
