@@ -87,6 +87,7 @@
     <Compile Include="Components\ComponentShaderDefault.cs" />
     <Compile Include="Components\ComponentCollisionSphere.cs" />
     <Compile Include="Components\ComponentVelocity.cs" />
+    <Compile Include="Managers\GameCollisionManager.cs" />
     <Compile Include="Managers\CollisionManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="OBJLoader\CjClutter.ObjLoader.Loader\Common\StringExtensions.cs" />

@@ -5,7 +5,7 @@ using OpenGL_Game.Components;
 
 namespace OpenGL_Game.Objects
 {
-    class Entity
+    public class Entity
     {
         string name;
         List<IComponent> componentList = new List<IComponent>();

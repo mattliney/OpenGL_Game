@@ -9,21 +9,44 @@ using OpenGL_Game.Objects;
 
 namespace OpenGL_Game.Managers
 {
-    enum COLLISIONTYPE
+    public enum COLLISION_TYPE
     {
         SPHERE_SPHERE
     }
-    struct Collision
+    public struct Collision
     {
-        Entity entity1;
-        Entity entity2;
-        COLLISIONTYPE collisionType;
+        public Entity entity1;
+        public Entity entity2;
+        public COLLISION_TYPE collisionType;
     }
 
-    class CollisionManager
+    public abstract class CollisionManager
     {
         List<Collision> mCollisionManifold = new List<Collision>();
 
-        public CollisionManager() {  }
+        public void ClearManifold()
+        {
+            mCollisionManifold.Clear();
+        }
+
+        public void RegisterCollision(Entity pEntity1, Entity pEntity2, COLLISION_TYPE pCollisionType)
+        {
+            foreach(Collision c in mCollisionManifold)
+            {
+                if(c.entity1 == pEntity1 && c.entity2 == pEntity2)
+                {
+                    return;
+                }
+            }
+
+            Collision col;
+            col.entity1 = pEntity1;
+            col.entity2 = pEntity2;
+            col.collisionType = pCollisionType;
+
+            mCollisionManifold.Add(col);
+        }
+
+        public abstract void ProcessCollision();
     }
 }
