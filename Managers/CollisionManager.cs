@@ -22,7 +22,7 @@ namespace OpenGL_Game.Managers
 
     public abstract class CollisionManager
     {
-        List<Collision> mCollisionManifold = new List<Collision>();
+        protected List<Collision> mCollisionManifold = new List<Collision>();
 
         public void ClearManifold()
         {

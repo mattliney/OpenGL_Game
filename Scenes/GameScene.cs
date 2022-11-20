@@ -18,7 +18,6 @@ namespace OpenGL_Game.Scenes
         public static float dt = 0;
         EntityManager entityManager;
         SystemManager systemManager;
-        GameCollisionManager gameCollisionManager;
 
         public Camera camera;
 
@@ -31,7 +30,6 @@ namespace OpenGL_Game.Scenes
             gameInstance = this;
             entityManager = new EntityManager();
             systemManager = new SystemManager();
-            gameCollisionManager = new GameCollisionManager();
             sceneManager.inputManager.ReadFromFile("Controls/GameControls.txt");
 
             // Set the title of the window
@@ -66,7 +64,7 @@ namespace OpenGL_Game.Scenes
             //newEntity.AddComponent(new ComponentShaderDefault());
 
             newEntity = new Entity("Moon");
-            newEntity.AddComponent(new ComponentPosition(-2.0f, 0.0f, 0.0f));
+            newEntity.AddComponent(new ComponentPosition(-3.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/Moon/moon.obj"));
             newEntity.AddComponent(new ComponentShaderNoLights());
             newEntity.AddComponent(new ComponentVelocity(0.5f, 0.0f, 0.0f));
@@ -74,7 +72,7 @@ namespace OpenGL_Game.Scenes
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Moon2");
-            newEntity.AddComponent(new ComponentPosition(2.0f, 0.0f, 0.0f));
+            newEntity.AddComponent(new ComponentPosition(3.0f, 0.0f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry("Geometry/Moon/moon.obj"));
             newEntity.AddComponent(new ComponentShaderNoLights());
             newEntity.AddComponent(new ComponentVelocity(-0.5f, 0.0f, 0.0f));
@@ -114,7 +112,7 @@ namespace OpenGL_Game.Scenes
             systemManager.AddSystem(newSystem);
             newSystem = new SystemAudio();
             systemManager.AddSystem(newSystem);
-            newSystem = new SystemCollisionSphere(gameCollisionManager);
+            newSystem = new SystemCollisionSphere(sceneManager.collisionManager);
             systemManager.AddSystem(newSystem);
         }
 
@@ -133,7 +131,7 @@ namespace OpenGL_Game.Scenes
 
             sceneManager.inputManager.ProcessInputs(sceneManager, camera);
 
-            gameCollisionManager.ProcessCollision();
+            sceneManager.collisionManager.ProcessCollision();
 
             // TODO: Add your update logic here
 
