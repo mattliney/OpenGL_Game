@@ -15,7 +15,6 @@ namespace OpenGL_Game.Managers
 
         public override void ProcessCollision()
         {
-
             foreach(Collision col in mCollisionManifold)
             {
                 if(col.collisionType == COLLISION_TYPE.SPHERE_SPHERE)
@@ -29,7 +28,7 @@ namespace OpenGL_Game.Managers
 
         public void SphereSphere(Entity pEntity1, Entity pEntity2)
         {
-
+            return;
         }
     }
 }

@@ -38,11 +38,6 @@ namespace OpenGL_Game.Systems
                     {
                         if(entity1 != entity2 && (entity2.Mask & MASK) == MASK)
                         {
-                            List<IComponent> components2 = entity2.Components;
-                            ComponentPosition entity2Position;
-                            ComponentCollisionSphere entity2Sphere;
-                            RetrieveComponents(components2, out entity2Position, out entity2Sphere);
-
                             Collision(entity1, entity2);
                         }
                     }
@@ -58,11 +53,11 @@ namespace OpenGL_Game.Systems
             });
             position = (ComponentPosition)positionComponent;
 
-            IComponent audioComponent = pComponents.Find(delegate (IComponent component)
+            IComponent collisionComponent = pComponents.Find(delegate (IComponent component)
             {
                 return component.ComponentType == ComponentTypes.COMPONENT_COLLISION_SPHERE;
             });
-            sphere = (ComponentCollisionSphere)audioComponent;
+            sphere = (ComponentCollisionSphere)collisionComponent;
         }
 
         public void Collision(Entity pEntity1, Entity pEntity2)

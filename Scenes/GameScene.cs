@@ -68,7 +68,7 @@ namespace OpenGL_Game.Scenes
             newEntity.AddComponent(new ComponentGeometry("Geometry/Moon/moon.obj"));
             newEntity.AddComponent(new ComponentShaderNoLights());
             newEntity.AddComponent(new ComponentVelocity(0.5f, 0.0f, 0.0f));
-            newEntity.AddComponent(new ComponentCollisionSphere(100));
+            newEntity.AddComponent(new ComponentCollisionSphere(1));
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Moon2");
@@ -76,7 +76,7 @@ namespace OpenGL_Game.Scenes
             newEntity.AddComponent(new ComponentGeometry("Geometry/Moon/moon.obj"));
             newEntity.AddComponent(new ComponentShaderNoLights());
             newEntity.AddComponent(new ComponentVelocity(-0.5f, 0.0f, 0.0f));
-            newEntity.AddComponent(new ComponentCollisionSphere(100));
+            newEntity.AddComponent(new ComponentCollisionSphere(1));
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Wraith_Raider_Starship");
