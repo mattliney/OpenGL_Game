@@ -61,7 +61,6 @@ namespace OpenGL_Game.Scenes
             Entity newEntity;
 
             //newEntity.AddComponent(new ComponentShaderNoLights());
-            //newEntity.AddComponent(new ComponentShaderDefault());
 
             newEntity = new Entity("Moon");
             newEntity.AddComponent(new ComponentPosition(-3.0f, 0.0f, 0.0f));
@@ -94,11 +93,10 @@ namespace OpenGL_Game.Scenes
 
             newEntity = new Entity("coolSkull");
             newEntity.AddComponent(new ComponentPosition(0.0f, 1.0f, 0.0f));
-            newEntity.AddComponent(new ComponentVelocity(0.5f, 0.5f, 0.0f));
             newEntity.AddComponent(new ComponentGeometry(
                 "Geometry/skull/skull.obj"));
             newEntity.AddComponent(new ComponentShaderDefault());
-            //newEntity.AddComponent(new ComponentAudio("Audio/buzz.wav"));
+            newEntity.AddComponent(new ComponentAudio("Audio/buzz.wav"));
             entityManager.AddEntity(newEntity);
         }
 

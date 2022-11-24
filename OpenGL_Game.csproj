@@ -90,6 +90,7 @@
     <Compile Include="Managers\GameCollisionManager.cs" />
     <Compile Include="Managers\CollisionManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
+    <Compile Include="Managers\ScriptManager.cs" />
     <Compile Include="OBJLoader\CjClutter.ObjLoader.Loader\Common\StringExtensions.cs" />
     <Compile Include="OBJLoader\CjClutter.ObjLoader.Loader\Data\DataStore\DataStore.cs" />
     <Compile Include="OBJLoader\CjClutter.ObjLoader.Loader\Data\DataStore\IDataStore.cs" />
@@ -281,6 +282,9 @@
     <Content Include="Geometry\Wraith_Raider_Starship\yx1_02_01_01.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <!-- Specify the search path explicitly so the ResolveAssemblyReferences task picks the right ones -->
   <Target Name="BeforeResolveReferences">
