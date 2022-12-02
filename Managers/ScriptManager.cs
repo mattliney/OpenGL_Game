@@ -5,19 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenGL_Game.Objects;
 using System.IO;
+using OpenGL_Game.Components;
 
 namespace OpenGL_Game.Managers
 {
-    class ScriptManager
+    abstract class ScriptManager
     {
         public ScriptManager() { }
 
-        public List<Entity> LoadEntities(string pFileName)
-        {
+        abstract public void LoadEntityList(string pFileName, EntityManager pEntityManager);
 
-
-            return null;
-
-        }
+        abstract protected void ParseLine(string pLine, Entity pEntity);
     }
 }

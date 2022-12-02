@@ -58,6 +58,9 @@ namespace OpenGL_Game.Scenes
 
         private void CreateEntities()
         {
+            GameScriptManager gsm = new GameScriptManager();
+            gsm.LoadEntityList("Scripts/GameSceneEntities.txt", entityManager);
+
             Entity newEntity;
 
             //newEntity.AddComponent(new ComponentShaderNoLights());
