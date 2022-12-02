@@ -18,6 +18,7 @@ namespace OpenGL_Game.Scenes
         public static float dt = 0;
         EntityManager entityManager;
         SystemManager systemManager;
+        GameScriptManager gameScriptManager;
 
         public Camera camera;
 
@@ -30,6 +31,7 @@ namespace OpenGL_Game.Scenes
             gameInstance = this;
             entityManager = new EntityManager();
             systemManager = new SystemManager();
+            gameScriptManager = new GameScriptManager();
             sceneManager.inputManager.ReadFromFile("Controls/GameControls.txt");
 
             // Set the title of the window
@@ -61,46 +63,7 @@ namespace OpenGL_Game.Scenes
             GameScriptManager gsm = new GameScriptManager();
             gsm.LoadEntityList("Scripts/GameSceneEntities.txt", entityManager);
 
-            Entity newEntity;
-
-            //newEntity.AddComponent(new ComponentShaderNoLights());
-
-            newEntity = new Entity("Moon");
-            newEntity.AddComponent(new ComponentPosition(-3.0f, 0.0f, 0.0f));
-            newEntity.AddComponent(new ComponentGeometry("Geometry/Moon/moon.obj"));
-            newEntity.AddComponent(new ComponentShaderNoLights());
-            newEntity.AddComponent(new ComponentVelocity(0.5f, 0.0f, 0.0f));
-            newEntity.AddComponent(new ComponentCollisionSphere(1));
-            entityManager.AddEntity(newEntity);
-
-            newEntity = new Entity("Moon2");
-            newEntity.AddComponent(new ComponentPosition(3.0f, 0.0f, 0.0f));
-            newEntity.AddComponent(new ComponentGeometry("Geometry/Moon/moon.obj"));
-            newEntity.AddComponent(new ComponentShaderNoLights());
-            newEntity.AddComponent(new ComponentVelocity(-0.5f, 0.0f, 0.0f));
-            newEntity.AddComponent(new ComponentCollisionSphere(1));
-            entityManager.AddEntity(newEntity);
-
-            newEntity = new Entity("Wraith_Raider_Starship");
-            newEntity.AddComponent(new ComponentPosition(2.0f, 0.0f, 0.0f));
-            newEntity.AddComponent(new ComponentGeometry("Geometry/Wraith_Raider_Starship/Wraith_Raider_Starship.obj"));
-            newEntity.AddComponent(new ComponentShaderDefault());
-            entityManager.AddEntity(newEntity);
-
-            newEntity = new Entity("Intergalactic_Spaceship");
-            newEntity.AddComponent(new ComponentPosition(0.0f, 0.0f, 0.0f));
-            newEntity.AddComponent(new ComponentGeometry(
-                "Geometry/Intergalactic_Spaceship/Intergalactic_Spaceship.obj"));
-            newEntity.AddComponent(new ComponentShaderDefault());
-            entityManager.AddEntity(newEntity);
-
-            newEntity = new Entity("coolSkull");
-            newEntity.AddComponent(new ComponentPosition(0.0f, 1.0f, 0.0f));
-            newEntity.AddComponent(new ComponentGeometry(
-                "Geometry/skull/skull.obj"));
-            newEntity.AddComponent(new ComponentShaderDefault());
-            newEntity.AddComponent(new ComponentAudio("Audio/buzz.wav"));
-            entityManager.AddEntity(newEntity);
+            gameScriptManager.LoadEntityList("Scripts/GameSceneEntities", entityManager);
         }
 
         private void CreateSystems()
