@@ -4,14 +4,14 @@ namespace OpenGL_Game.Components
 {
     class ComponentCollisionSphere : IComponent
     {
-        int mRadius;
+        float mRadius;
 
-        public ComponentCollisionSphere(int pRadius)
+        public ComponentCollisionSphere(float pRadius)
         {
             mRadius = pRadius;
         }
 
-        public int Radius
+        public float Radius
         {
             get { return mRadius; }
             set { mRadius = value; }

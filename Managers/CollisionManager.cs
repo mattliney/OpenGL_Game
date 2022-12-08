@@ -37,6 +37,10 @@ namespace OpenGL_Game.Managers
                 {
                     return;
                 }
+                else if(c.entity2 == pEntity1 && c.entity1 == pEntity2)
+                {
+                    return;
+                }
             }
 
             Collision col;

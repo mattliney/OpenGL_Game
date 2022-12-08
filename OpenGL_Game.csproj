@@ -155,6 +155,7 @@
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Managers\SystemManager.cs" />
+    <Compile Include="Systems\SystemPlayer.cs" />
     <Compile Include="Systems\SystemCollisionSphere.cs" />
     <Compile Include="Systems\SystemAudio.cs" />
     <Compile Include="Systems\SystemPhysics.cs" />

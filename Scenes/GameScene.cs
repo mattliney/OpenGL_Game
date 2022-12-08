@@ -49,7 +49,7 @@ namespace OpenGL_Game.Scenes
             GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
             // Set Camera
-            camera = new Camera(new Vector3(0, 4, 7), new Vector3(0, 0, 0), (float)(sceneManager.Width) / (float)(sceneManager.Height), 0.1f, 100f);
+            camera = new Camera(new Vector3(0, 0, 7), new Vector3(0, 0, 0), (float)(sceneManager.Width) / (float)(sceneManager.Height), 0.1f, 100f);
 
             CreateEntities();
             CreateSystems();
@@ -77,6 +77,8 @@ namespace OpenGL_Game.Scenes
             newSystem = new SystemAudio();
             systemManager.AddSystem(newSystem);
             newSystem = new SystemCollisionSphere(sceneManager.collisionManager);
+            systemManager.AddSystem(newSystem);
+            newSystem = new SystemPlayer(camera);
             systemManager.AddSystem(newSystem);
         }
 

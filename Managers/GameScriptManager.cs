@@ -57,7 +57,7 @@ namespace OpenGL_Game.Managers
                     break;
 
                 case "COMPONENT_COLLISION_SPHERE":
-                    pEntity.AddComponent(new ComponentCollisionSphere(int.Parse(splitLine[1])));
+                    pEntity.AddComponent(new ComponentCollisionSphere(float.Parse(splitLine[1])));
                     break;
 
                 case "COMPONENT_GEOMETRY":

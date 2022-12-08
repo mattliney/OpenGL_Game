@@ -6,6 +6,7 @@ using OpenGL_Game.Scenes;
 using System.IO;
 using System.Collections.Generic;
 using OpenGL_Game.Objects;
+using OpenGL_Game.Components;
 
 namespace OpenGL_Game.Managers
 {
@@ -28,6 +29,14 @@ namespace OpenGL_Game.Managers
 
         public void SphereSphere(Entity pEntity1, Entity pEntity2)
         {
+            IComponent positionComponent = pEntity1.Components.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
+            });
+            ComponentPosition e1Pos = (ComponentPosition)positionComponent;
+
+            //e1Pos.Position += new Vector3(0.1f, 0, 0);
+
             return;
         }
     }
