@@ -266,6 +266,12 @@
     <Content Include="Geometry\maze\brickWall.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Geometry\maze\darkStoneWall.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Geometry\maze\stoneWall.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Geometry\Moon\moon_diffuse.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
