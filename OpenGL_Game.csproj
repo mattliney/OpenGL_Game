@@ -220,6 +220,18 @@
     <None Include="Geometry\skull\skullEnemy.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Geometry\sky\sky.mtl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Geometry\sky\sky.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Geometry\sky\sky2.mtl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Geometry\sky\sky2.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Geometry\Wraith_Raider_Starship\Wraith_Raider_Starship.mtl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -300,6 +312,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Geometry\pumpkin\Sphere2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Geometry\sky\sky.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Geometry\Wraith_Raider_Starship\bmq1.jpg">

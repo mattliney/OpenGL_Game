@@ -43,8 +43,8 @@ namespace OpenGL_Game.Scenes
             // Enable Depth Testing
             GL.Enable(EnableCap.DepthTest);
             GL.DepthMask(true);
-            GL.Enable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.Back);
+            //GL.Enable(EnableCap.CullFace);
+            //GL.CullFace(CullFaceMode.Back);
 
             GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 

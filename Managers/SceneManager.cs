@@ -67,8 +67,8 @@ namespace OpenGL_Game.Managers
 
             GL.Enable(EnableCap.DepthTest);
             GL.DepthMask(true);
-            GL.Enable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.Back);
+            //GL.Enable(EnableCap.CullFace);
+            //GL.CullFace(CullFaceMode.Back);
 
             //Load the GUI
             GUI.SetUpGUI(width, height);
