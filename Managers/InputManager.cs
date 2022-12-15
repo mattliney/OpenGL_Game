@@ -46,11 +46,11 @@ namespace OpenGL_Game.Managers
             {
                 if (commandInstruction == "FORWARD") { pCamera.MoveForward(0.1f); }
 
-                if (commandInstruction == "RIGHT") { pCamera.RotateY(0.01f); ; }
+                if (commandInstruction == "RIGHT") { pCamera.RotateY(0.05f); ; }
 
-                if (commandInstruction == "BACK") { pCamera.MoveForward(-0.1f); }
+                if (commandInstruction == "BACK") { pCamera.MoveForward(-0.05f); }
 
-                if (commandInstruction == "LEFT") { pCamera.RotateY(-0.01f); }
+                if (commandInstruction == "LEFT") { pCamera.RotateY(-0.1f); }
             }
             else if(commandType == "SCENE")
             {

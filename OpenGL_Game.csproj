@@ -184,6 +184,12 @@
     <None Include="Geometry\maze\maze1.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Geometry\maze\maze2.mtl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Geometry\maze\maze2.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Geometry\Moon\moon.mtl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
