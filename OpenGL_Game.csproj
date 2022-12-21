@@ -81,6 +81,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="Components\ComponentCollisionSquare.cs" />
     <Compile Include="Components\ComponentAudio.cs" />
     <Compile Include="Components\ComponentShader.cs" />
     <Compile Include="Components\ComponentShaderNoLights.cs" />
@@ -155,8 +156,9 @@
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Managers\SystemManager.cs" />
+    <Compile Include="Systems\SystemCollisionSphereSquare.cs" />
     <Compile Include="Systems\SystemPlayer.cs" />
-    <Compile Include="Systems\SystemCollisionSphere.cs" />
+    <Compile Include="Systems\SystemCollisionSphereSphere.cs" />
     <Compile Include="Systems\SystemAudio.cs" />
     <Compile Include="Systems\SystemPhysics.cs" />
     <Compile Include="Systems\SystemRender.cs" />

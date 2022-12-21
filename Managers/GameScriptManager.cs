@@ -92,6 +92,14 @@ namespace OpenGL_Game.Managers
                     pEntity.AddComponent(new ComponentVelocity(xVel, yVel, zVel));
                     break;
 
+                case "COMPONENT_COLLISION_SQUARE":
+                    string[] splitXYZ = splitLine[1].Split(',');
+                    float xLength = float.Parse(splitXYZ[0]);
+                    float yLength = float.Parse(splitXYZ[1]);
+                    float zLength = float.Parse(splitXYZ[2]);
+                    pEntity.AddComponent(new ComponentCollisionSquare(xLength, yLength, zLength));
+                    break;
+
                 default:
                     break;
             }

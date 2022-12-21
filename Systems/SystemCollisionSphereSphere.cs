@@ -12,12 +12,12 @@ using OpenGL_Game.Managers;
 
 namespace OpenGL_Game.Systems
 {
-    class SystemCollisionSphere : ISystem
+    class SystemCollisionSphereSphere : ISystem
     {
         const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_COLLISION_SPHERE);
         CollisionManager mCollisionManager;
 
-        public SystemCollisionSphere(CollisionManager pCM)
+        public SystemCollisionSphereSphere(CollisionManager pCM)
         {
             this.mCollisionManager = pCM;
         }
@@ -70,10 +70,7 @@ namespace OpenGL_Game.Systems
             ComponentCollisionSphere entity2Sphere;
             RetrieveComponents(pEntity2.Components, out entity2Position, out entity2Sphere);
 
-            if ((entity1Position.Position - entity2Position.Position).Length < entity1Sphere.Radius + entity2Sphere.Radius)
-            {
-                mCollisionManager.RegisterCollision(pEntity1, pEntity2, COLLISION_TYPE.SPHERE_SPHERE);
-            }
+
         }
     }
 }

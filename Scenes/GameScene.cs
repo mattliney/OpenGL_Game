@@ -76,9 +76,11 @@ namespace OpenGL_Game.Scenes
             systemManager.AddSystem(newSystem);
             newSystem = new SystemAudio();
             systemManager.AddSystem(newSystem);
-            newSystem = new SystemCollisionSphere(sceneManager.collisionManager);
+            newSystem = new SystemCollisionSphereSphere(sceneManager.collisionManager);
             systemManager.AddSystem(newSystem);
             newSystem = new SystemPlayer(camera);
+            systemManager.AddSystem(newSystem);
+            newSystem = new SystemCollisionSphereSquare(sceneManager.collisionManager);
             systemManager.AddSystem(newSystem);
         }
 
