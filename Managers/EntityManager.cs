@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace OpenGL_Game.Managers
 {
-    class EntityManager
+    public class EntityManager
     {
         List<Entity> entityList;
 
@@ -27,6 +27,11 @@ namespace OpenGL_Game.Managers
                 return e.Name == name;
             }
             );
+        }
+
+        public void RemoveEntity(Entity pEntity)
+        {
+            entityList.Remove(pEntity);
         }
 
         public List<Entity> Entities()

@@ -23,6 +23,12 @@ namespace OpenGL_Game.Managers
     public abstract class CollisionManager
     {
         protected List<Collision> mCollisionManifold = new List<Collision>();
+        protected EntityManager mEntityManager;
+
+        public CollisionManager(EntityManager pEntityManager)
+        {
+            mEntityManager = pEntityManager;
+        }
 
         public void ClearManifold()
         {

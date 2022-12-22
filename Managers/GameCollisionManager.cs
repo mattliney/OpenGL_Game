@@ -12,7 +12,10 @@ namespace OpenGL_Game.Managers
 {
     public class GameCollisionManager : CollisionManager
     {
-        public GameCollisionManager() {  }
+        public GameCollisionManager(EntityManager pEntityManager) : base(pEntityManager)
+        {
+
+        }
 
         public override void ProcessCollision()
         {
@@ -29,15 +32,40 @@ namespace OpenGL_Game.Managers
 
         public void SphereSphere(Entity pEntity1, Entity pEntity2)
         {
-            IComponent positionComponent = pEntity1.Components.Find(delegate (IComponent component)
+            if(pEntity2.Name == "HealthPowerUp" && pEntity1.Name == "player")
             {
-                return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
+                HealthPowerUpCollect(pEntity1, pEntity2);
+            }
+            else if (pEntity2.Name == "SpeedPowerUp" && pEntity1.Name == "player")
+            {
+                SpeedPowerUpCollect(pEntity1, pEntity2);
+            }
+        }
+
+        private void HealthPowerUpCollect(Entity pEntityPlayer, Entity pEntityPowerUp)
+        {
+            IComponent healthComponent = pEntityPlayer.Components.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_HEALTH;
             });
-            ComponentPosition e1Pos = (ComponentPosition)positionComponent;
+            ComponentHealth health = (ComponentHealth)healthComponent;
 
-            //e1Pos.Position += new Vector3(0.1f, 0, 0);
+            health.Health += 1;
 
-            return;
+            mEntityManager.RemoveEntity(pEntityPowerUp);
+        }
+
+        private void SpeedPowerUpCollect(Entity pEntityPlayer, Entity pEntityPowerUp)
+        {
+            IComponent speedComponent = pEntityPlayer.Components.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_SPEED;
+            });
+            ComponentSpeed speed = (ComponentSpeed)speedComponent;
+
+            speed.Speed += 0.5f;
+
+            mEntityManager.RemoveEntity(pEntityPowerUp);
         }
     }
 }

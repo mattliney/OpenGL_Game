@@ -100,6 +100,14 @@ namespace OpenGL_Game.Managers
                     pEntity.AddComponent(new ComponentCollisionSquare(xLength, yLength, zLength));
                     break;
 
+                case "COMPONENT_HEALTH":
+                    pEntity.AddComponent(new ComponentHealth(int.Parse(splitLine[1])));
+                    break;
+
+                case "COMPONENT_SPEED":
+                    pEntity.AddComponent(new ComponentSpeed(float.Parse(splitLine[1])));
+                    break;
+
                 default:
                     break;
             }

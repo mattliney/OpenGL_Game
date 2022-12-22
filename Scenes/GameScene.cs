@@ -32,6 +32,7 @@ namespace OpenGL_Game.Scenes
             entityManager = new EntityManager();
             systemManager = new SystemManager();
             gameScriptManager = new GameScriptManager();
+            sceneManager.collisionManager = new GameCollisionManager(entityManager);
             sceneManager.inputManager.ReadFromFile("Controls/GameControls.txt");
 
             // Set the title of the window

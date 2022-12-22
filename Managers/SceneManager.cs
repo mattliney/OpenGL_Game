@@ -27,7 +27,7 @@ namespace OpenGL_Game.Managers
         public MouseDelegate mouseDelegate;
 
         public InputManager inputManager = new InputManager();
-        public CollisionManager collisionManager = new GameCollisionManager();
+        public CollisionManager collisionManager;
         public AudioContext audioContext;
 
         public SceneManager() : base(width, height, new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(8, 8, 8, 8), 16))

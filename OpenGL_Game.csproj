@@ -81,6 +81,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="Components\ComponentSpeed.cs" />
+    <Compile Include="Components\ComponentHealth.cs" />
     <Compile Include="Components\ComponentCollisionSquare.cs" />
     <Compile Include="Components\ComponentAudio.cs" />
     <Compile Include="Components\ComponentShader.cs" />
