@@ -32,9 +32,8 @@ namespace OpenGL_Game.Systems
         {
             foreach(Entity entity1 in entities)
             {
-                if ((entity1.Mask & SPHEREMASK) == SPHEREMASK)
+                if ((entity1.Mask & SPHEREMASK) == SPHEREMASK && entity1.Name == "player")
                 {
-
                     foreach(Entity entity2 in entities)
                     {
                         if(entity1 != entity2 && (entity2.Mask & SQUAREMASK) == SQUAREMASK)
@@ -86,17 +85,38 @@ namespace OpenGL_Game.Systems
             ComponentCollisionSquare entity2Square;
             RetrieveComponents(pEntity2.Components, out entity2Position, out entity2Square);
 
-            float xDistanceSphere = Math.Abs(entity1Position.Position.X - entity2Square.Width);
-            float yDistanceSphere = Math.Abs(entity1Position.Position.Y - entity2Square.Height);
-            float zDistanceSphere = Math.Abs(entity1Position.Position.Z - entity2Square.Depth);
+            float xDistance = Math.Abs(entity1Position.Position.X - entity2Position.Position.X);
+            float yDistance = Math.Abs(entity1Position.Position.Y - entity2Position.Position.Y);
+            float zDistance = Math.Abs(entity1Position.Position.Z - entity2Position.Position.Z);
 
-            if (xDistanceSphere >= (entity2Square.Width + entity1Sphere.Radius)) { return; } //no collision... sorry!
-            if (yDistanceSphere >= (entity2Square.Height + entity1Sphere.Radius)) { return; }
-            if (zDistanceSphere >= (entity2Square.Depth + entity1Sphere.Radius)) { return; }
+            if (xDistance >= (entity2Square.Width + entity1Sphere.Radius)) { return; } //no collision... sorry!
+            if (yDistance >= (entity2Square.Height + entity1Sphere.Radius)) { return; }
+            if (zDistance >= (entity2Square.Depth + entity1Sphere.Radius)) { return; }
 
-            if (xDistanceSphere < (entity2Square.Width)) { } 
-            if (yDistanceSphere < (entity2Square.Height)) { }
-            if (zDistanceSphere < (entity2Square.Depth)) { }
+            if (xDistance < (entity2Square.Width))
+            {
+                if (entity1Position.Position.Z > entity2Position.Position.Z) // right
+                {
+                    int x = 1;
+                }
+                else if (entity1Position.Position.Z < entity2Position.Position.Z) // left
+                {
+                    int x = 1;
+                }
+            }
+
+            if (zDistance < (entity2Square.Depth))
+            {
+
+                if(entity1Position.Position.X > entity2Position.Position.X) // front
+                {
+                    int x = 1;
+                }
+                else if (entity1Position.Position.X < entity2Position.Position.X) // back
+                {
+                    int x = 1;
+                }
+            }
         }
     }
 }
