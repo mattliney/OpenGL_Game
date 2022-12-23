@@ -5,6 +5,8 @@ using OpenTK.Input;
 using OpenGL_Game.Scenes;
 using System.IO;
 using System.Collections.Generic;
+using OpenGL_Game.Objects;
+using OpenGL_Game.Components;
 
 namespace OpenGL_Game.Managers
 {
@@ -13,9 +15,11 @@ namespace OpenGL_Game.Managers
         Dictionary<Key, string> keyboardBinds = new Dictionary<Key, string>();
         Dictionary<MouseButton, string> mouseBinds = new Dictionary<MouseButton, string>();
 
+        float mSpeed;
+
         public InputManager() {  }
 
-        public void ProcessInputs(SceneManager pSceneManager, Camera pCamera)
+        public void ProcessInputs(SceneManager pSceneManager, Camera pCamera, EntityManager pEntityManager)
         {
             KeyboardState ks = Keyboard.GetState();
             MouseState ms = Mouse.GetState();
@@ -24,6 +28,7 @@ namespace OpenGL_Game.Managers
             {
                 if(ks.IsKeyDown(kvp.Key))
                 {
+                    GetSpeedComponent(pEntityManager);
                     HandleInput(kvp.Value, pCamera, pSceneManager);
                 }
             }
@@ -44,11 +49,11 @@ namespace OpenGL_Game.Managers
 
             if(commandType == "CAMERA")
             {
-                if (commandInstruction == "FORWARD") { pCamera.MoveForward(0.1f); }
+                if (commandInstruction == "FORWARD") { pCamera.MoveForward(mSpeed); }
 
                 if (commandInstruction == "RIGHT") { pCamera.RotateY(0.025f); ; }
 
-                if (commandInstruction == "BACK") { pCamera.MoveForward(-0.025f); }
+                if (commandInstruction == "BACK") { pCamera.MoveForward(-mSpeed); }
 
                 if (commandInstruction == "LEFT") { pCamera.RotateY(-0.1f); }
             }
@@ -113,6 +118,28 @@ namespace OpenGL_Game.Managers
                 }
             }
 
+        }
+
+        public void GetSpeedComponent(EntityManager pEntityManager)
+        {
+            if(pEntityManager == null)
+            {
+                return;
+            }
+
+            foreach(Entity e in pEntityManager.Entities())
+            {
+                if(e.Name == "player")
+                {
+                    IComponent speedComponent = e.Components.Find(delegate (IComponent component)
+                    {
+                        return component.ComponentType == ComponentTypes.COMPONENT_SPEED;
+                    });
+                    ComponentSpeed speed = (ComponentSpeed)speedComponent;
+                    mSpeed = speed.Speed;
+                    return;
+                }
+            }
         }
     }
 }

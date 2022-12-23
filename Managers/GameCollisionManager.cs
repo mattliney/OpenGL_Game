@@ -63,7 +63,7 @@ namespace OpenGL_Game.Managers
             });
             ComponentSpeed speed = (ComponentSpeed)speedComponent;
 
-            speed.Speed += 0.5f;
+            speed.Speed += 0.05f;
 
             mEntityManager.RemoveEntity(pEntityPowerUp);
         }

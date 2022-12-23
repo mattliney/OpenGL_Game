@@ -23,7 +23,7 @@ namespace OpenGL_Game.Scenes
 
         public override void Update(FrameEventArgs e)
         {
-            sceneManager.inputManager.ProcessInputs(sceneManager, null);
+            sceneManager.inputManager.ProcessInputs(sceneManager, null, null);
         }
 
         public override void Render(FrameEventArgs e)
