@@ -15,16 +15,22 @@ namespace OpenGL_Game.Managers
         Dictionary<Key, string> keyboardBinds = new Dictionary<Key, string>();
         Dictionary<MouseButton, string> mouseBinds = new Dictionary<MouseButton, string>();
 
+        EntityManager mEntityManager;
+        Entity mBullet;
+
+        int mBulletIndex;
+
         float mSpeed;
 
-        public InputManager() {  }
+        public InputManager() { mBulletIndex = 0; }
 
         public void ProcessInputs(SceneManager pSceneManager, Camera pCamera, EntityManager pEntityManager)
         {
             KeyboardState ks = Keyboard.GetState();
             MouseState ms = Mouse.GetState();
+            mEntityManager = pEntityManager;
 
-            foreach(KeyValuePair<Key, string> kvp in keyboardBinds)
+            foreach (KeyValuePair<Key, string> kvp in keyboardBinds)
             {
                 if(ks.IsKeyDown(kvp.Key))
                 {
@@ -56,6 +62,8 @@ namespace OpenGL_Game.Managers
                 if (commandInstruction == "BACK") { pCamera.MoveForward(-mSpeed); }
 
                 if (commandInstruction == "LEFT") { pCamera.RotateY(-0.1f); }
+
+                if (commandInstruction == "SHOOT") { Shoot(pCamera); }
             }
             else if(commandType == "SCENE")
             {
@@ -138,6 +146,37 @@ namespace OpenGL_Game.Managers
                     ComponentSpeed speed = (ComponentSpeed)speedComponent;
                     mSpeed = speed.Speed;
                     return;
+                }
+            }
+        }
+
+        public void Shoot(Camera pCamera)
+        {
+            if (mEntityManager != null)
+            {
+                foreach (Entity e in mEntityManager.Entities())
+                {
+                    if (e.Name == "bullet")
+                    {
+                        ComponentPosition position = new ComponentPosition(pCamera.cameraPosition);
+                        ComponentVelocity velocity = new ComponentVelocity(pCamera.cameraDirection * 10);
+
+                        Entity newBullet = new Entity("Bullet " + mBulletIndex);
+
+                        newBullet.AddComponent(position);
+                        newBullet.AddComponent(velocity);
+
+                        foreach (IComponent c in e.Components)
+                        {
+                            newBullet.AddComponent(c);
+                        }
+
+                        mEntityManager.AddEntity(newBullet);
+
+                        mBulletIndex++;
+
+                        return;
+                    }
                 }
             }
         }
