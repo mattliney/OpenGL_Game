@@ -108,6 +108,10 @@ namespace OpenGL_Game.Managers
                     pEntity.AddComponent(new ComponentSpeed(float.Parse(splitLine[1])));
                     break;
 
+                case "COMPONENT_DAMAGE":
+                    pEntity.AddComponent(new ComponentDamage(int.Parse(splitLine[1])));
+                    break;
+
                 default:
                     break;
             }

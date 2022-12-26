@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using OpenGL_Game.Objects;
 using OpenGL_Game.Components;
+using System.Diagnostics;
 
 namespace OpenGL_Game.Managers
 {
@@ -16,13 +17,14 @@ namespace OpenGL_Game.Managers
         Dictionary<MouseButton, string> mouseBinds = new Dictionary<MouseButton, string>();
 
         EntityManager mEntityManager;
-        Entity mBullet;
 
+        Stopwatch mShootCooldown;
+        Entity mBullet;
         int mBulletIndex;
 
         float mSpeed;
 
-        public InputManager() { mBulletIndex = 0; }
+        public InputManager() { mBulletIndex = 0; mShootCooldown = new Stopwatch(); mShootCooldown.Start(); }
 
         public void ProcessInputs(SceneManager pSceneManager, Camera pCamera, EntityManager pEntityManager)
         {
@@ -156,10 +158,11 @@ namespace OpenGL_Game.Managers
             {
                 foreach (Entity e in mEntityManager.Entities())
                 {
-                    if (e.Name == "bullet")
+                    if (e.Name == "bullet" && mShootCooldown.ElapsedMilliseconds >= 500)
                     {
+                        mShootCooldown.Restart();
                         ComponentPosition position = new ComponentPosition(pCamera.cameraPosition);
-                        ComponentVelocity velocity = new ComponentVelocity(pCamera.cameraDirection * 10);
+                        ComponentVelocity velocity = new ComponentVelocity(pCamera.cameraDirection * 30);
 
                         Entity newBullet = new Entity("Bullet " + mBulletIndex);
 

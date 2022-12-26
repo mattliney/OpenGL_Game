@@ -40,6 +40,14 @@ namespace OpenGL_Game.Managers
             {
                 SpeedPowerUpCollect(pEntity1, pEntity2);
             }
+            else if (pEntity2.Name == "DamagePowerUp" && pEntity1.Name == "player")
+            {
+                DamagePowerCollect(pEntity2);
+            }
+            else if (pEntity2.Name.Contains("Bullet") && pEntity1.Name.Contains("enemy"))
+            {
+                DealDamage(pEntity1, pEntity2);
+            }
         }
 
         private void HealthPowerUpCollect(Entity pEntityPlayer, Entity pEntityPowerUp)
@@ -66,6 +74,78 @@ namespace OpenGL_Game.Managers
             speed.Speed += 0.05f;
 
             mEntityManager.RemoveEntity(pEntityPowerUp);
+        }
+
+        private void DamagePowerCollect(Entity pEntityPowerUp)
+        {
+            if (mEntityManager != null)
+            {
+                foreach (Entity e in mEntityManager.Entities())
+                {
+                    if(e.Name == "bullet")
+                    {
+                        IComponent damageComponent = e.Components.Find(delegate (IComponent component)
+                        {
+                            return component.ComponentType == ComponentTypes.COMPONENT_DAMAGE;
+                        });
+                        ComponentDamage damage = (ComponentDamage)damageComponent;
+
+                        damage.Damage += 2;
+                    }
+                }
+            }
+
+            mEntityManager.RemoveEntity(pEntityPowerUp);
+        }
+
+        private void DealDamage(Entity pDamageReceiver, Entity pDamageGiver)
+        {
+            ComponentHealth health = null;
+            if (pDamageReceiver.Name.Contains("enemy") && pDamageGiver.Name.Contains("Bullet"))
+            {
+                IComponent healthComponent = pDamageReceiver.Components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_HEALTH;
+                });
+                health = (ComponentHealth)healthComponent;
+
+                IComponent damageComponent = pDamageGiver.Components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_DAMAGE;
+                });
+                ComponentDamage damage = (ComponentDamage)damageComponent;
+
+                health.Health -= damage.Damage;
+
+                mEntityManager.RemoveEntity(pDamageGiver);
+            }
+            else if(pDamageReceiver.Name.Contains("player") && pDamageGiver.Name.Contains("enemy"))
+            {
+                    IComponent healthComponent = pDamageReceiver.Components.Find(delegate (IComponent component)
+                    {
+                        return component.ComponentType == ComponentTypes.COMPONENT_HEALTH;
+                    });
+                    health = (ComponentHealth)healthComponent;
+
+                    IComponent damageComponent = pDamageGiver.Components.Find(delegate (IComponent component)
+                    {
+                        return component.ComponentType == ComponentTypes.COMPONENT_DAMAGE;
+                    });
+                    ComponentDamage damage = (ComponentDamage)damageComponent;
+
+                    health.Health -= damage.Damage;
+
+                    mEntityManager.RemoveEntity(pDamageGiver);
+            }
+            else
+            {
+                return;
+            }
+
+            if (health.Health <= 0)
+            {
+                mEntityManager.RemoveEntity(pDamageReceiver);
+            }
         }
     }
 }
