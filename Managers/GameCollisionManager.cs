@@ -7,14 +7,17 @@ using System.IO;
 using System.Collections.Generic;
 using OpenGL_Game.Objects;
 using OpenGL_Game.Components;
+using System.Diagnostics;
 
 namespace OpenGL_Game.Managers
 {
     public class GameCollisionManager : CollisionManager
     {
+        Stopwatch mPlayerHurtTimer;
         public GameCollisionManager(EntityManager pEntityManager) : base(pEntityManager)
         {
-
+            mPlayerHurtTimer = new Stopwatch();
+            mPlayerHurtTimer.Start();
         }
 
         public override void ProcessCollision()
@@ -47,6 +50,10 @@ namespace OpenGL_Game.Managers
             else if (pEntity2.Name.Contains("Bullet") && pEntity1.Name.Contains("enemy"))
             {
                 DealDamage(pEntity1, pEntity2);
+            }
+            else if (pEntity2.Name.Contains("player") && pEntity1.Name.Contains("enemy"))
+            {
+                DealDamage(pEntity2, pEntity1);
             }
         }
 
@@ -144,21 +151,24 @@ namespace OpenGL_Game.Managers
             }
             else if(pDamageReceiver.Name.Contains("player") && pDamageGiver.Name.Contains("enemy"))
             {
-                    IComponent healthComponent = pDamageReceiver.Components.Find(delegate (IComponent component)
-                    {
-                        return component.ComponentType == ComponentTypes.COMPONENT_HEALTH;
-                    });
-                    health = (ComponentHealth)healthComponent;
+                IComponent healthComponent = pDamageReceiver.Components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_HEALTH;
+                });
+                health = (ComponentHealth)healthComponent;
 
-                    IComponent damageComponent = pDamageGiver.Components.Find(delegate (IComponent component)
-                    {
-                        return component.ComponentType == ComponentTypes.COMPONENT_DAMAGE;
-                    });
-                    ComponentDamage damage = (ComponentDamage)damageComponent;
+                IComponent soundComponent = pDamageReceiver.Components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_AUDIO;
+                });
+                ComponentAudio audio = (ComponentAudio)soundComponent;
 
-                    health.Health -= damage.Damage;
-
-                    mEntityManager.RemoveEntity(pDamageGiver);
+                if (mPlayerHurtTimer.ElapsedMilliseconds >= 1000)
+                {
+                    health.Health -= 1;
+                    audio.PlayAudio();
+                    mPlayerHurtTimer.Restart();
+                }
             }
             else
             {

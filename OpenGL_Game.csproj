@@ -301,6 +301,9 @@
     <Content Include="Audio\funnyShoot.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Audio\hurt.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Audio\pickUp.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
