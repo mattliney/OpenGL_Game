@@ -161,6 +161,15 @@ namespace OpenGL_Game.Managers
                     if (e.Name == "bullet" && mShootCooldown.ElapsedMilliseconds >= 500)
                     {
                         mShootCooldown.Restart();
+
+                        IComponent audioComponent = e.Components.Find(delegate (IComponent component)
+                        {
+                            return component.ComponentType == ComponentTypes.COMPONENT_AUDIO;
+                        });
+                        ComponentAudio audio = (ComponentAudio)audioComponent;
+
+                        audio.PlayAudio();
+
                         ComponentPosition position = new ComponentPosition(pCamera.cameraPosition);
                         ComponentVelocity velocity = new ComponentVelocity(pCamera.cameraDirection * 30);
 

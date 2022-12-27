@@ -58,6 +58,14 @@ namespace OpenGL_Game.Managers
             });
             ComponentHealth health = (ComponentHealth)healthComponent;
 
+            IComponent audioComponent = pEntityPowerUp.Components.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_AUDIO;
+            });
+            ComponentAudio audio = (ComponentAudio)audioComponent;
+
+            audio.PlayAudio();
+
             health.Health += 1;
 
             mEntityManager.RemoveEntity(pEntityPowerUp);
@@ -70,6 +78,14 @@ namespace OpenGL_Game.Managers
                 return component.ComponentType == ComponentTypes.COMPONENT_SPEED;
             });
             ComponentSpeed speed = (ComponentSpeed)speedComponent;
+
+            IComponent audioComponent = pEntityPowerUp.Components.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_AUDIO;
+            });
+            ComponentAudio audio = (ComponentAudio)audioComponent;
+
+            audio.PlayAudio();
 
             speed.Speed += 0.05f;
 
@@ -90,6 +106,13 @@ namespace OpenGL_Game.Managers
                         });
                         ComponentDamage damage = (ComponentDamage)damageComponent;
 
+                        IComponent audioComponent = pEntityPowerUp.Components.Find(delegate (IComponent component)
+                        {
+                            return component.ComponentType == ComponentTypes.COMPONENT_AUDIO;
+                        });
+                        ComponentAudio audio = (ComponentAudio)audioComponent;
+
+                        audio.PlayAudio();
                         damage.Damage += 2;
                     }
                 }
@@ -144,6 +167,12 @@ namespace OpenGL_Game.Managers
 
             if (health.Health <= 0)
             {
+                IComponent soundComponent = pDamageReceiver.Components.Find(delegate (IComponent component)
+                {
+                    return component.ComponentType == ComponentTypes.COMPONENT_AUDIO;
+                });
+                ComponentAudio audio = (ComponentAudio)soundComponent;
+                audio.PlayAudio();
                 mEntityManager.RemoveEntity(pDamageReceiver);
             }
         }

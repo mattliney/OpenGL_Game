@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using OpenGL_Game.Objects;
 using System.Diagnostics;
+using OpenGL_Game.Components;
 
 namespace OpenGL_Game.Managers
 {
@@ -31,6 +32,17 @@ namespace OpenGL_Game.Managers
 
         public void RemoveEntity(Entity pEntity)
         {
+            foreach (IComponent c in pEntity.Components)
+            {
+                if (c.ComponentType == ComponentTypes.COMPONENT_AUDIO)
+                {
+                    ComponentAudio ca = (ComponentAudio)c;
+                    if(ca.mIsLooping)
+                    {
+                        c.Close();
+                    }
+                }
+            }
             entityList.Remove(pEntity);
         }
 

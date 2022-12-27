@@ -30,6 +30,8 @@ namespace OpenGL_Game.Systems
             {
                 if ((entity.Mask & MASK) == MASK)
                 {
+                    List<ComponentAudio> audioComponents = GetAudioComponents(entity);
+
                     List<IComponent> components = entity.Components;
 
                     IComponent positionComponent = components.Find(delegate (IComponent component)
@@ -44,14 +46,41 @@ namespace OpenGL_Game.Systems
                     });
                     ComponentAudio audio = (ComponentAudio)audioComponent;
 
-                    PlayAudio(position, audio);
+                    if(audioComponents.Count > 1)
+                    {
+                        SetPosition(position, audioComponents[0]);
+                        if(audioComponents[1].mIsLooping && !audioComponents[1].mIsPlaying)
+                        {
+                            audioComponents[1].PlayAudio();
+                            audioComponents[1].mIsPlaying = true;
+                        }
+                    }
+                    else
+                    {
+                        SetPosition(position, audio);
+                    }
                 }
             }
         }
 
-        public void PlayAudio(ComponentPosition pPosition, ComponentAudio pAudio)
+        public void SetPosition(ComponentPosition pPosition, ComponentAudio pAudio)
         {
             pAudio.SetPosition(pPosition.Position);
+        }
+
+        private List<ComponentAudio> GetAudioComponents(Entity pEntity)
+        {
+            List<ComponentAudio> audios = new List<ComponentAudio>();
+
+            foreach(IComponent c in pEntity.Components)
+            {
+                if(c.ComponentType == ComponentTypes.COMPONENT_AUDIO)
+                {
+                    audios.Add((ComponentAudio)c);
+                }
+            }
+
+            return audios;
         }
     }
 }

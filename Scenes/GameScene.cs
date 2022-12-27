@@ -118,10 +118,15 @@ namespace OpenGL_Game.Scenes
             // Action ALL systems
             systemManager.ActionSystems(entityManager);
 
-            // Render score
+            // Render scene entity info
+            int droneCount;
+            int playerHealth;
+            GetSceneEntityInfo(out playerHealth, out droneCount);
+
             float width = sceneManager.Width, height = sceneManager.Height, fontSize = Math.Min(width, height) / 10f;
             GUI.clearColour = Color.Transparent;
-            GUI.Label(new Rectangle(0, 0, (int)width, (int)(fontSize * 2f)), "Score: 000", 18, StringAlignment.Near, Color.White);
+            GUI.Label(new Rectangle(0, 0, (int)width, (int)(fontSize * 2f)), "Health: " + playerHealth, 18, StringAlignment.Near, Color.White);;
+            GUI.Label(new Rectangle(0, 25, (int)width, (int)(fontSize * 2f)), "Enemies Left: " + droneCount, 18, StringAlignment.Near, Color.White); ;
             GUI.Render();
         }
 
@@ -135,6 +140,29 @@ namespace OpenGL_Game.Scenes
                 e.Close();
             }
             ResourceManager.RemoveAllAssets();
+        }
+
+        public void GetSceneEntityInfo(out int playerHealth, out int droneCount)
+        {
+            playerHealth = 0;
+            droneCount = 0;
+            foreach(Entity e in entityManager.Entities())
+            {
+                if(e.Name == "player")
+                {
+                    IComponent healthComponent = e.Components.Find(delegate (IComponent component)
+                    {
+                        return component.ComponentType == ComponentTypes.COMPONENT_HEALTH;
+                    });
+                    ComponentHealth health = (ComponentHealth)healthComponent;
+
+                    playerHealth = health.Health;
+                }
+                else if (e.Name.Contains("enemy"))
+                {
+                    droneCount++;
+                }
+            }
         }
     }
 }

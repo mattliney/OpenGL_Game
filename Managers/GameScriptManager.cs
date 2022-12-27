@@ -53,7 +53,8 @@ namespace OpenGL_Game.Managers
             switch (splitLine[0])
             {
                 case "COMPONENT_AUDIO":
-                    pEntity.AddComponent(new ComponentAudio(splitLine[1]));
+                    string[] splitAudio = splitLine[1].Split(',');
+                    pEntity.AddComponent(new ComponentAudio(splitAudio[0], bool.Parse(splitAudio[1])));
                     break;
 
                 case "COMPONENT_COLLISION_SPHERE":
