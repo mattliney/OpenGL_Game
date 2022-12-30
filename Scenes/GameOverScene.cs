@@ -37,6 +37,7 @@ namespace OpenGL_Game.Scenes
 
             //Display the Title
             float width = sceneManager.Width, height = sceneManager.Height, fontSize = Math.Min(width, height) / 20f;
+            GUI.CreateImage("Images/placeholder.png", 1250, 800, 0, 0);
             GUI.Label(new Rectangle(0, (int)(fontSize / 2f), (int)width, (int)(fontSize * 2f)), "game over, idiot", (int)fontSize, StringAlignment.Center);
 
             GUI.Render();

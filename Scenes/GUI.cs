@@ -81,6 +81,15 @@ namespace OpenGL_Game.Scenes
             textGFX.DrawString(text, new Font("Arial", fontSize), brush, rect, stringFormat);
         }
 
+        static public void CreateImage(string pFileName, int pWidth, int pHeight, int pX, int pY)
+        {
+            Image image = Image.FromFile(pFileName);
+            Size size = new Size(pWidth, pHeight);
+            Bitmap imageToDimensions = new Bitmap(image, size);
+            imageToDimensions.MakeTransparent();
+            textGFX.DrawImage(imageToDimensions, new Point(pX, pY));
+        }
+
         static public void Render()
         {
             // Enable the texture

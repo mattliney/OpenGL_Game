@@ -28,6 +28,7 @@ namespace OpenGL_Game.Scenes
 
         public override void Render(FrameEventArgs e)
         {
+            GUI.CreateImage("Images/menu.png", 1250, 800, 0, 0);
             GL.Viewport(0, 0, sceneManager.Width, sceneManager.Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
@@ -39,7 +40,6 @@ namespace OpenGL_Game.Scenes
 
             //Display the Title
             float width = sceneManager.Width, height = sceneManager.Height, fontSize = Math.Min(width, height) / 10f;
-            GUI.Label(new Rectangle(0, (int)(fontSize / 2f), (int)width, (int)(fontSize * 2f)), "Main Menu", (int)fontSize, StringAlignment.Center);
 
             GUI.Render();
         }

@@ -19,7 +19,8 @@ namespace OpenGL_Game.Scenes
         EntityManager entityManager;
         SystemManager systemManager;
         GameScriptManager gameScriptManager;
-
+        int mDroneCount;
+        int mPlayerHealth;
         public Camera camera;
 
         bool[] keyPressed = new bool[255];
@@ -98,6 +99,16 @@ namespace OpenGL_Game.Scenes
             if (GamePad.GetState(1).Buttons.Back == ButtonState.Pressed)
                 sceneManager.Exit();
 
+            GetSceneEntityInfo(out mPlayerHealth, out mDroneCount);
+            if(mPlayerHealth <= 0)
+            {
+                sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
+            }
+            else if(mDroneCount <= 0)
+            {
+                sceneManager.ChangeScene(SceneTypes.SCENE_GAME_WIN);
+            }
+
             sceneManager.inputManager.ProcessInputs(sceneManager, camera, entityManager);
 
             sceneManager.collisionManager.ProcessCollision();
@@ -118,15 +129,15 @@ namespace OpenGL_Game.Scenes
             // Action ALL systems
             systemManager.ActionSystems(entityManager);
 
-            // Render scene entity info
-            int droneCount;
-            int playerHealth;
-            GetSceneEntityInfo(out playerHealth, out droneCount);
-
             float width = sceneManager.Width, height = sceneManager.Height, fontSize = Math.Min(width, height) / 10f;
             GUI.clearColour = Color.Transparent;
-            GUI.Label(new Rectangle(0, 0, (int)width, (int)(fontSize * 2f)), "Health: " + playerHealth, 18, StringAlignment.Near, Color.White);;
-            GUI.Label(new Rectangle(0, 25, (int)width, (int)(fontSize * 2f)), "Enemies Left: " + droneCount, 18, StringAlignment.Near, Color.White); ;
+
+            GUI.Label(new Rectangle(25, 25, (int)width, (int)(fontSize * 2f)), "Health: ", 18, StringAlignment.Near, Color.White);;
+            for (int i = 0; i < mPlayerHealth; i++) { GUI.CreateImage("Images/heart.png", 100, 100, 100 + (i * 65), 0); }
+
+            GUI.Label(new Rectangle(0, 90, (int)width, (int)(fontSize * 2f)), "Enemies Left: ", 18, StringAlignment.Near, Color.White); ;
+            for (int i = 0; i < mDroneCount; i++) { GUI.CreateImage("Images/skull.png", 100, 100, 130 + (i * 65), 60); }
+
             GUI.Render();
         }
 
