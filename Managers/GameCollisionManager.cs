@@ -14,10 +14,13 @@ namespace OpenGL_Game.Managers
     public class GameCollisionManager : CollisionManager
     {
         Stopwatch mPlayerHurtTimer;
-        public GameCollisionManager(EntityManager pEntityManager) : base(pEntityManager)
+        Camera mPlayerCamera;
+        public GameCollisionManager(EntityManager pEntityManager, Camera pCamera) : base(pEntityManager)
         {
             mPlayerHurtTimer = new Stopwatch();
             mPlayerHurtTimer.Start();
+            mPlayerCamera = pCamera;
+
         }
 
         public override void ProcessCollision()
@@ -27,6 +30,10 @@ namespace OpenGL_Game.Managers
                 if(col.collisionType == COLLISION_TYPE.SPHERE_SPHERE)
                 {
                     SphereSphere(col.entity1, col.entity2);
+                }
+                else if(col.collisionType == COLLISION_TYPE.SPHERE_SQUARE)
+                {
+                    SphereSquare(col.entity1, col.entity2);
                 }
             }
 
@@ -54,6 +61,50 @@ namespace OpenGL_Game.Managers
             else if (pEntity2.Name.Contains("player") && pEntity1.Name.Contains("enemy"))
             {
                 DealDamage(pEntity2, pEntity1);
+            }
+        }
+
+        private void SphereSquare(Entity pEntity1, Entity pEntity2)
+        {
+            if(pEntity1.Name.Contains("Bullet"))
+            {
+                mEntityManager.RemoveEntity(pEntity1);
+                return;
+            }
+            ComponentPosition entity1Position;
+            ComponentCollisionSphere entity1Sphere;
+            RetrieveComponents(pEntity1.Components, out entity1Position, out entity1Sphere);
+
+            ComponentPosition entity2Position;
+            ComponentCollisionSquare entity2Square;
+            RetrieveComponents(pEntity2.Components, out entity2Position, out entity2Square);
+
+            float xDistance = Math.Abs(entity1Position.Position.X - entity2Position.Position.X);
+            float zDistance = Math.Abs(entity1Position.Position.Z - entity2Position.Position.Z);
+
+            if (xDistance < (entity2Square.Width))
+            {
+                if (entity1Position.Position.Z > entity2Position.Position.Z) // right
+                {
+                    mPlayerCamera.cameraPosition.Z = entity2Position.Position.Z + entity2Square.Depth + entity1Sphere.Radius;
+                }
+                else if (entity1Position.Position.Z < entity2Position.Position.Z) // left
+                {
+                    mPlayerCamera.cameraPosition.Z = entity2Position.Position.Z - entity2Square.Depth - entity1Sphere.Radius;
+                }
+            }
+
+            if (zDistance < (entity2Square.Depth))
+            {
+
+                if (entity1Position.Position.X > entity2Position.Position.X) // front
+                {
+                    mPlayerCamera.cameraPosition.X = entity2Position.Position.X + entity2Square.Width + entity1Sphere.Radius;
+                }
+                else if (entity1Position.Position.X < entity2Position.Position.X) // back
+                {
+                    mPlayerCamera.cameraPosition.X = entity2Position.Position.X - entity2Square.Width - entity1Sphere.Radius;
+                }
             }
         }
 
@@ -185,6 +236,36 @@ namespace OpenGL_Game.Managers
                 audio.PlayAudio();
                 mEntityManager.RemoveEntity(pDamageReceiver);
             }
+        }
+
+        public void RetrieveComponents(List<IComponent> pComponents, out ComponentPosition position, out ComponentCollisionSphere sphere)
+        {
+            IComponent positionComponent = pComponents.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
+            });
+            position = (ComponentPosition)positionComponent;
+
+            IComponent collisionComponent = pComponents.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_COLLISION_SPHERE;
+            });
+            sphere = (ComponentCollisionSphere)collisionComponent;
+        }
+
+        public void RetrieveComponents(List<IComponent> pComponents, out ComponentPosition position, out ComponentCollisionSquare square)
+        {
+            IComponent positionComponent = pComponents.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_POSITION;
+            });
+            position = (ComponentPosition)positionComponent;
+
+            IComponent collisionComponent = pComponents.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_COLLISION_SQUARE;
+            });
+            square = (ComponentCollisionSquare)collisionComponent;
         }
     }
 }

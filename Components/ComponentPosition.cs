@@ -2,7 +2,7 @@
 
 namespace OpenGL_Game.Components
 {
-    class ComponentPosition : IComponent
+    public class ComponentPosition : IComponent
     {
         Vector3 position;
 

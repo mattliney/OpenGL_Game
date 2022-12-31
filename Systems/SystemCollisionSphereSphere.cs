@@ -75,5 +75,6 @@ namespace OpenGL_Game.Systems
                 mCollisionManager.RegisterCollision(pEntity1, pEntity2, COLLISION_TYPE.SPHERE_SPHERE);
             }
         }
+
     }
 }

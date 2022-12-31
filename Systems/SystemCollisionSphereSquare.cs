@@ -32,7 +32,7 @@ namespace OpenGL_Game.Systems
         {
             foreach(Entity entity1 in entities)
             {
-                if ((entity1.Mask & SPHEREMASK) == SPHEREMASK && entity1.Name == "player")
+                if ((entity1.Mask & SPHEREMASK) == SPHEREMASK && entity1.Name == "player" || entity1.Name.Contains("Bullet"))
                 {
                     foreach(Entity entity2 in entities)
                     {
@@ -44,6 +44,26 @@ namespace OpenGL_Game.Systems
                 }
             }
         }
+
+        public void Collision(Entity pEntity1, Entity pEntity2)
+        {
+            ComponentPosition entity1Position;
+            ComponentCollisionSphere entity1Sphere;
+            RetrieveComponents(pEntity1.Components, out entity1Position, out entity1Sphere);
+
+            ComponentPosition entity2Position;
+            ComponentCollisionSquare entity2Square;
+            RetrieveComponents(pEntity2.Components, out entity2Position, out entity2Square);
+
+            float xDistance = Math.Abs(entity1Position.Position.X - entity2Position.Position.X);
+            float zDistance = Math.Abs(entity1Position.Position.Z - entity2Position.Position.Z);
+
+            if (xDistance >= (entity2Square.Width + entity1Sphere.Radius)) { return; } //no collision... sorry!
+            if (zDistance >= (entity2Square.Depth + entity1Sphere.Radius)) { return; }
+
+            mCollisionManager.RegisterCollision(pEntity1, pEntity2, COLLISION_TYPE.SPHERE_SQUARE);
+        }
+
 
         public void RetrieveComponents(List<IComponent> pComponents, out ComponentPosition position, out ComponentCollisionSphere sphere)
         {
@@ -73,50 +93,6 @@ namespace OpenGL_Game.Systems
                 return component.ComponentType == ComponentTypes.COMPONENT_COLLISION_SQUARE;
             });
             square = (ComponentCollisionSquare)collisionComponent;
-        }
-
-        public void Collision(Entity pEntity1, Entity pEntity2)
-        {
-            ComponentPosition entity1Position;
-            ComponentCollisionSphere entity1Sphere;
-            RetrieveComponents(pEntity1.Components, out entity1Position, out entity1Sphere);
-
-            ComponentPosition entity2Position;
-            ComponentCollisionSquare entity2Square;
-            RetrieveComponents(pEntity2.Components, out entity2Position, out entity2Square);
-
-            float xDistance = Math.Abs(entity1Position.Position.X - entity2Position.Position.X);
-            float yDistance = Math.Abs(entity1Position.Position.Y - entity2Position.Position.Y);
-            float zDistance = Math.Abs(entity1Position.Position.Z - entity2Position.Position.Z);
-
-            if (xDistance >= (entity2Square.Width + entity1Sphere.Radius)) { return; } //no collision... sorry!
-            if (yDistance >= (entity2Square.Height + entity1Sphere.Radius)) { return; }
-            if (zDistance >= (entity2Square.Depth + entity1Sphere.Radius)) { return; }
-
-            if (xDistance < (entity2Square.Width))
-            {
-                if (entity1Position.Position.Z > entity2Position.Position.Z) // right
-                {
-                    int x = 1;
-                }
-                else if (entity1Position.Position.Z < entity2Position.Position.Z) // left
-                {
-                    int x = 1;
-                }
-            }
-
-            if (zDistance < (entity2Square.Depth))
-            {
-
-                if(entity1Position.Position.X > entity2Position.Position.X) // front
-                {
-                    int x = 1;
-                }
-                else if (entity1Position.Position.X < entity2Position.Position.X) // back
-                {
-                    int x = 1;
-                }
-            }
         }
     }
 }

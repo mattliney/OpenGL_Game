@@ -289,6 +289,9 @@
     <Content Include="Images\heart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\map.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\menu.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -33,7 +33,6 @@ namespace OpenGL_Game.Scenes
             entityManager = new EntityManager();
             systemManager = new SystemManager();
             gameScriptManager = new GameScriptManager();
-            sceneManager.collisionManager = new GameCollisionManager(entityManager);
             sceneManager.inputManager.ReadFromFile("Controls/GameControls.txt");
 
             // Set the title of the window
@@ -52,6 +51,7 @@ namespace OpenGL_Game.Scenes
 
             // Set Camera
             camera = new Camera(new Vector3(6, 0.5f, -8f), new Vector3(6, 0.5f, 0), (float)(sceneManager.Width) / (float)(sceneManager.Height), 0.1f, 100f);
+            sceneManager.collisionManager = new GameCollisionManager(entityManager, camera);
 
             CreateEntities();
             CreateSystems();
@@ -102,11 +102,11 @@ namespace OpenGL_Game.Scenes
             GetSceneEntityInfo(out mPlayerHealth, out mDroneCount);
             if(mPlayerHealth <= 0)
             {
-                sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
+                //sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
             }
             else if(mDroneCount <= 0)
             {
-                sceneManager.ChangeScene(SceneTypes.SCENE_GAME_WIN);
+                //sceneManager.ChangeScene(SceneTypes.SCENE_GAME_WIN);
             }
 
             sceneManager.inputManager.ProcessInputs(sceneManager, camera, entityManager);

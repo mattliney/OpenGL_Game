@@ -3,7 +3,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace OpenGL_Game
 {
-    class Camera
+    public class Camera
     {
         public Matrix4 view, projection;
         public Vector3 cameraPosition, cameraDirection, cameraUp;

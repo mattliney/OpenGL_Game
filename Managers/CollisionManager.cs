@@ -11,7 +11,8 @@ namespace OpenGL_Game.Managers
 {
     public enum COLLISION_TYPE
     {
-        SPHERE_SPHERE
+        SPHERE_SPHERE,
+        SPHERE_SQUARE
     }
     public struct Collision
     {

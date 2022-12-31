@@ -86,7 +86,7 @@ namespace OpenGL_Game.Scenes
             Image image = Image.FromFile(pFileName);
             Size size = new Size(pWidth, pHeight);
             Bitmap imageToDimensions = new Bitmap(image, size);
-            imageToDimensions.MakeTransparent();
+            //imageToDimensions.MakeTransparent();
             textGFX.DrawImage(imageToDimensions, new Point(pX, pY));
         }
 

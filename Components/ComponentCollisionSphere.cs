@@ -2,7 +2,7 @@
 
 namespace OpenGL_Game.Components
 {
-    class ComponentCollisionSphere : IComponent
+    public class ComponentCollisionSphere : IComponent
     {
         float mRadius;
 

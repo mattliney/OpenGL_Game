@@ -7,7 +7,7 @@ using OpenTK.Audio.OpenAL;
 
 namespace OpenGL_Game.Components
 {
-    class ComponentCollisionSquare : IComponent
+    public class ComponentCollisionSquare : IComponent
     {
         float mWidth;
         float mHeight;
