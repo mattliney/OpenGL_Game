@@ -28,7 +28,8 @@ namespace OpenGL_Game.Scenes
 
         public override void Render(FrameEventArgs e)
         {
-            GUI.CreateImage("Images/menu.png", 1250, 800, 0, 0);
+            Image menuImage = GUI.CreateImage("Images/menu.png");
+            GUI.ImageDraw(menuImage, 1250, 800, -120, -341, 0);
             GL.Viewport(0, 0, sceneManager.Width, sceneManager.Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 

@@ -9,8 +9,11 @@ namespace OpenGL_Game
         public Vector3 cameraPosition, cameraDirection, cameraUp;
         private Vector3 targetPosition;
 
+        public bool mDebugMode;
+
         public Camera()
         {
+            mDebugMode = false;
             cameraPosition = new Vector3(0.0f, 0.0f, 0.0f);
             cameraDirection = new Vector3(0.0f, 0.0f, -1.0f);
             cameraUp = new Vector3(0.0f, 1.0f, 0.0f);

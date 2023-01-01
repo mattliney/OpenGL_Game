@@ -81,13 +81,39 @@ namespace OpenGL_Game.Scenes
             textGFX.DrawString(text, new Font("Arial", fontSize), brush, rect, stringFormat);
         }
 
-        static public void CreateImage(string pFileName, int pWidth, int pHeight, int pX, int pY)
+        static public Image CreateImage(string pFileName)
         {
             Image image = Image.FromFile(pFileName);
+            return image;
+        }
+
+        static public void ImageDraw(Image pImage, int pWidth, int pHeight, int pX, int pY, float pAngle)
+        {
             Size size = new Size(pWidth, pHeight);
-            Bitmap imageToDimensions = new Bitmap(image, size);
-            //imageToDimensions.MakeTransparent();
+            Bitmap imageToDimensions = new Bitmap(pImage, size);
+            imageToDimensions.MakeTransparent();
+            imageToDimensions = Rotate(pAngle, imageToDimensions);
             textGFX.DrawImage(imageToDimensions, new Point(pX, pY));
+        }
+
+        static private Bitmap Rotate(float pAngle, Bitmap pImage)
+        {
+            float height = pImage.Height;
+            float width = pImage.Width;
+            int hyp = Convert.ToInt32(Math.Floor(Math.Sqrt(height * height + width * width)));
+            Bitmap rotatedImage = new Bitmap(hyp, hyp);
+
+            Graphics graphicsFromImage = Graphics.FromImage(rotatedImage);
+            graphicsFromImage.TranslateTransform((float)rotatedImage.Width / 2, (float)rotatedImage.Height / 2);
+            graphicsFromImage.RotateTransform(pAngle);
+            graphicsFromImage.TranslateTransform(-(float)rotatedImage.Width / 2, -(float)rotatedImage.Height / 2);
+            graphicsFromImage.DrawImage(pImage, (hyp - width) / 2, (hyp - height) / 2, width, height);
+
+
+            return rotatedImage;
+
+            // only way i could find how to rotate images.
+            // https://stackoverflow.com/questions/12024406/how-can-i-rotate-an-image-by-any-degree
         }
 
         static public void Render()

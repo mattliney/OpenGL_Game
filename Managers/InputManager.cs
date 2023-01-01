@@ -19,12 +19,20 @@ namespace OpenGL_Game.Managers
         EntityManager mEntityManager;
 
         Stopwatch mShootCooldown;
+        Stopwatch mDebugCooldown;
         Entity mBullet;
         int mBulletIndex;
 
         float mSpeed;
 
-        public InputManager() { mBulletIndex = 0; mShootCooldown = new Stopwatch(); mShootCooldown.Start(); }
+        public InputManager() 
+        {
+            mBulletIndex = 0; 
+            mShootCooldown = new Stopwatch();
+            mDebugCooldown = new Stopwatch();
+            mShootCooldown.Start();
+            mDebugCooldown.Start();
+        }
 
         public void ProcessInputs(SceneManager pSceneManager, Camera pCamera, EntityManager pEntityManager)
         {
@@ -66,6 +74,8 @@ namespace OpenGL_Game.Managers
                 if (commandInstruction == "LEFT") { pCamera.RotateY(-0.1f); }
 
                 if (commandInstruction == "SHOOT") { Shoot(pCamera); }
+
+                if (commandInstruction == "DEBUG") { EnterDebugMode(pCamera); }
             }
             else if(commandType == "SCENE")
             {
@@ -190,6 +200,15 @@ namespace OpenGL_Game.Managers
                         return;
                     }
                 }
+            }
+        }
+
+        private void EnterDebugMode(Camera pCamera)
+        {
+            if(mDebugCooldown.ElapsedMilliseconds >= 300)
+            {
+                mDebugCooldown.Restart();
+                pCamera.mDebugMode = !pCamera.mDebugMode;
             }
         }
     }

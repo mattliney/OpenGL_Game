@@ -23,9 +23,15 @@ namespace OpenGL_Game.Scenes
         int mPlayerHealth;
         public Camera camera;
 
-        bool[] keyPressed = new bool[255];
-
         public static GameScene gameInstance;
+
+        //Map Variables
+        Image mMapImage;
+        Image mPowerUpImage;
+        Image mEnemyImage;
+        Image mPlayerImage;
+        Image mHealthImage;
+        Image mEnemiesLeftImage;
 
         public GameScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -50,11 +56,12 @@ namespace OpenGL_Game.Scenes
             GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
             // Set Camera
-            camera = new Camera(new Vector3(6, 0.5f, -8f), new Vector3(6, 0.5f, 0), (float)(sceneManager.Width) / (float)(sceneManager.Height), 0.1f, 100f);
+            camera = new Camera(new Vector3(-3, 0.5f, 0f), new Vector3(-3, 0.5f, 1), (float)(sceneManager.Width) / (float)(sceneManager.Height), 0.1f, 100f);
             sceneManager.collisionManager = new GameCollisionManager(entityManager, camera);
 
             CreateEntities();
             CreateSystems();
+            CreateImages();
 
             // TODO: Add your initialization logic here
 
@@ -66,6 +73,16 @@ namespace OpenGL_Game.Scenes
             gsm.LoadEntityList("Scripts/GameSceneEntities.txt", entityManager);
 
             gameScriptManager.LoadEntityList("Scripts/GameSceneEntities", entityManager);
+        }
+
+        private void CreateImages()
+        {
+            mMapImage = GUI.CreateImage("Images/map.png");
+            mEnemiesLeftImage = GUI.CreateImage("Images/skull.png");
+            mHealthImage = GUI.CreateImage("Images/heart.png");
+            mPowerUpImage = GUI.CreateImage("Images/pumpkin.png");
+            mEnemyImage = GUI.CreateImage("Images/enemy.png");
+            mPlayerImage = GUI.CreateImage("Images/playerImage.png");
         }
 
         private void CreateSystems()
@@ -106,7 +123,7 @@ namespace OpenGL_Game.Scenes
             }
             else if(mDroneCount <= 0)
             {
-                //sceneManager.ChangeScene(SceneTypes.SCENE_GAME_WIN);
+                sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
             }
 
             sceneManager.inputManager.ProcessInputs(sceneManager, camera, entityManager);
@@ -133,12 +150,71 @@ namespace OpenGL_Game.Scenes
             GUI.clearColour = Color.Transparent;
 
             GUI.Label(new Rectangle(25, 25, (int)width, (int)(fontSize * 2f)), "Health: ", 18, StringAlignment.Near, Color.White);;
-            for (int i = 0; i < mPlayerHealth; i++) { GUI.CreateImage("Images/heart.png", 100, 100, 100 + (i * 65), 0); }
+            for (int i = 0; i < mPlayerHealth; i++) { GUI.ImageDraw(mHealthImage, 100, 100, 100 + (i * 65), -20, 0); }
 
             GUI.Label(new Rectangle(0, 90, (int)width, (int)(fontSize * 2f)), "Enemies Left: ", 18, StringAlignment.Near, Color.White); ;
-            for (int i = 0; i < mDroneCount; i++) { GUI.CreateImage("Images/skull.png", 100, 100, 130 + (i * 65), 60); }
+            for (int i = 0; i < mDroneCount; i++) { GUI.ImageDraw(mEnemiesLeftImage, 100, 100, 130 + (i * 65), 35, 0); }
+
+            DrawMap();
 
             GUI.Render();
+        }
+
+        private void DrawMap()
+        {
+            GUI.ImageDraw(mMapImage, 300, 300, 835, 440, 0);
+
+            foreach(Entity e in entityManager.Entities())
+            {
+                ComponentPosition pos = (ComponentPosition)GetComponent(ComponentTypes.COMPONENT_POSITION, e);
+                Vector3 position = -pos.Position;
+
+                int xOffset;
+                int zOffset;
+
+                float xPos = position.X * 14;
+                float zPos = position.Z * 14;
+
+                if (e.Name == "player")
+                {
+                    xOffset = 990;
+                    zOffset = 620;
+                    Vector3 baseVector = new Vector3(0, 0, -1);
+                    Vector3 direction = -camera.cameraDirection;
+                    float angle = Vector3.CalculateAngle(baseVector, direction);
+                    angle = MathHelper.RadiansToDegrees(angle);
+
+                    if (direction.X < 0)
+                    {
+                        angle = -angle;
+                    }
+
+                    GUI.ImageDraw(mPlayerImage, 32, 32, (int)xPos + xOffset, (int)zPos + zOffset, angle);
+                }
+                else if (e.Name.Contains("PowerUp"))
+                {
+                    xOffset = 1000;
+                    zOffset = 630;
+                    GUI.ImageDraw(mPowerUpImage, 32, 32, (int)xPos + xOffset, (int)zPos + zOffset, 0);
+                }
+                else if (e.Name.Contains("enemy"))
+                {
+                    xOffset = 1000;
+                    zOffset = 630;
+                    GUI.ImageDraw(mEnemyImage, 32, 32, (int)xPos + xOffset, (int)zPos + zOffset, 0);
+                }
+            }
+        }
+
+        private IComponent GetComponent(ComponentTypes pComponentType, Entity pEntity)
+        {
+            IComponent entityComponent = pEntity.Components.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == pComponentType;
+            });
+            IComponent returnComponent = (IComponent)entityComponent;
+
+            return returnComponent;
         }
 
         /// <summary>

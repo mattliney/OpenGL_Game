@@ -66,9 +66,13 @@ namespace OpenGL_Game.Managers
 
         private void SphereSquare(Entity pEntity1, Entity pEntity2)
         {
-            if(pEntity1.Name.Contains("Bullet"))
+            if (pEntity1.Name.Contains("Bullet"))
             {
                 mEntityManager.RemoveEntity(pEntity1);
+                return;
+            }
+            else if (mPlayerCamera.mDebugMode)
+            {
                 return;
             }
             ComponentPosition entity1Position;
