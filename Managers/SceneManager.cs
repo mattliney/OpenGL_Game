@@ -30,11 +30,14 @@ namespace OpenGL_Game.Managers
         public CollisionManager collisionManager;
         public AudioContext audioContext;
 
+        public int mPlayerHealth; // It is necessary to store this variable here because the game scene restarts on hit
+
         public SceneManager() : base(width, height, new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(8, 8, 8, 8), 16))
         {
             audioContext = new AudioContext();
             this.X = windowXPos;
             this.Y = windowYPos;
+            mPlayerHealth = 3;
         }
 
         protected override void OnKeyDown(KeyboardKeyEventArgs e)
@@ -96,7 +99,7 @@ namespace OpenGL_Game.Managers
         public void StartNewGame()
         {
             if(scene != null) scene.Close();
-            scene = new GameScene(this);
+            scene = new GameScene(this, mPlayerHealth);
         }
 
         public void StartMenu()

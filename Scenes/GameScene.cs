@@ -7,6 +7,7 @@ using OpenGL_Game.Managers;
 using OpenGL_Game.Objects;
 using System.Drawing;
 using System;
+using System.Collections.Generic;
 
 namespace OpenGL_Game.Scenes
 {
@@ -21,6 +22,7 @@ namespace OpenGL_Game.Scenes
         GameScriptManager gameScriptManager;
         int mDroneCount;
         int mPlayerHealth;
+        int mCurrentPlayerHealth;
         public Camera camera;
 
         public static GameScene gameInstance;
@@ -33,7 +35,7 @@ namespace OpenGL_Game.Scenes
         Image mHealthImage;
         Image mEnemiesLeftImage;
 
-        public GameScene(SceneManager sceneManager) : base(sceneManager)
+        public GameScene(SceneManager sceneManager, int pPlayerHealth) : base(sceneManager)
         {
             gameInstance = this;
             entityManager = new EntityManager();
@@ -63,8 +65,10 @@ namespace OpenGL_Game.Scenes
             CreateSystems();
             CreateImages();
 
-            // TODO: Add your initialization logic here
-
+            // Set player health
+            mPlayerHealth = pPlayerHealth;
+            mCurrentPlayerHealth = mPlayerHealth;
+            InitPlayerHealth();
         }
 
         private void CreateEntities()
@@ -111,7 +115,7 @@ namespace OpenGL_Game.Scenes
         public override void Update(FrameEventArgs e)
         {
             dt = (float)e.Time;
-            //System.Console.WriteLine("fps=" + (int)(1.0/dt));
+            System.Console.WriteLine("fps=" + (int)(1.0/dt));
 
             if (GamePad.GetState(1).Buttons.Back == ButtonState.Pressed)
                 sceneManager.Exit();
@@ -119,7 +123,11 @@ namespace OpenGL_Game.Scenes
             GetSceneEntityInfo(out mPlayerHealth, out mDroneCount);
             if(mPlayerHealth <= 0)
             {
-                //sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
+                sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
+            }
+            else if(mPlayerHealth < mCurrentPlayerHealth)
+            {
+                sceneManager.ChangeScene(SceneTypes.SCENE_GAME);
             }
             else if(mDroneCount <= 0)
             {
@@ -244,10 +252,33 @@ namespace OpenGL_Game.Scenes
                     ComponentHealth health = (ComponentHealth)healthComponent;
 
                     playerHealth = health.Health;
+                    sceneManager.mPlayerHealth = playerHealth;
+
+                    if(playerHealth >= mCurrentPlayerHealth)
+                    {
+                        mCurrentPlayerHealth = playerHealth;
+                    }
                 }
                 else if (e.Name.Contains("enemy"))
                 {
                     droneCount++;
+                }
+            }
+
+
+        }
+
+        private void InitPlayerHealth()
+        {
+            foreach(Entity e in entityManager.Entities())
+            {
+                if(e.Name == "player")
+                {
+                    ComponentHealth temp = (ComponentHealth)GetComponent(ComponentTypes.COMPONENT_HEALTH, e);
+
+                    temp.Health = mPlayerHealth;
+
+                    return;
                 }
             }
         }
