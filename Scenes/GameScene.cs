@@ -8,6 +8,7 @@ using OpenGL_Game.Objects;
 using System.Drawing;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace OpenGL_Game.Scenes
 {
@@ -24,6 +25,8 @@ namespace OpenGL_Game.Scenes
         int mPlayerHealth;
         int mCurrentPlayerHealth;
         public Camera camera;
+        int mPlayerX;
+        int mPlayerZ;
 
         public static GameScene gameInstance;
 
@@ -37,10 +40,14 @@ namespace OpenGL_Game.Scenes
 
         public GameScene(SceneManager sceneManager, int pPlayerHealth) : base(sceneManager)
         {
+            mPlayerX = 0;
+            mPlayerZ = 0;
+
             gameInstance = this;
             entityManager = new EntityManager();
-            systemManager = new SystemManager();
             gameScriptManager = new GameScriptManager();
+            CreateEntities();
+            systemManager = new SystemManager();
             sceneManager.inputManager.ReadFromFile("Controls/GameControls.txt");
 
             // Set the title of the window
@@ -61,7 +68,6 @@ namespace OpenGL_Game.Scenes
             camera = new Camera(new Vector3(-3, 0.5f, 0f), new Vector3(-3, 0.5f, 1), (float)(sceneManager.Width) / (float)(sceneManager.Height), 0.1f, 100f);
             sceneManager.collisionManager = new GameCollisionManager(entityManager, camera);
 
-            CreateEntities();
             CreateSystems();
             CreateImages();
 
@@ -127,6 +133,7 @@ namespace OpenGL_Game.Scenes
             }
             else if(mPlayerHealth < mCurrentPlayerHealth)
             {
+                Thread.Sleep(250);
                 sceneManager.ChangeScene(SceneTypes.SCENE_GAME);
             }
             else if(mDroneCount <= 0)
@@ -162,6 +169,10 @@ namespace OpenGL_Game.Scenes
 
             GUI.Label(new Rectangle(0, 90, (int)width, (int)(fontSize * 2f)), "Enemies Left: ", 18, StringAlignment.Near, Color.White); ;
             for (int i = 0; i < mDroneCount; i++) { GUI.ImageDraw(mEnemiesLeftImage, 100, 100, 130 + (i * 65), 35, 0); }
+
+            GUI.Label(new Rectangle(0, 120, (int)width, (int)(fontSize * 2f)), "X: " + mPlayerX, 18, StringAlignment.Near, Color.White); ;
+            
+            GUI.Label(new Rectangle(0, 150, (int)width, (int)(fontSize * 2f)), "Z: " + mPlayerZ, 18, StringAlignment.Near, Color.White); ;
 
             DrawMap();
 
@@ -245,11 +256,10 @@ namespace OpenGL_Game.Scenes
             {
                 if(e.Name == "player")
                 {
-                    IComponent healthComponent = e.Components.Find(delegate (IComponent component)
-                    {
-                        return component.ComponentType == ComponentTypes.COMPONENT_HEALTH;
-                    });
-                    ComponentHealth health = (ComponentHealth)healthComponent;
+                    ComponentHealth health = (ComponentHealth)GetComponent(ComponentTypes.COMPONENT_HEALTH, e);
+                    ComponentPosition pos = (ComponentPosition)GetComponent(ComponentTypes.COMPONENT_POSITION, e);
+                    mPlayerX = (int)pos.Position.X;
+                    mPlayerZ = (int)pos.Position.Z;
 
                     playerHealth = health.Health;
                     sceneManager.mPlayerHealth = playerHealth;

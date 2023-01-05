@@ -15,12 +15,21 @@ namespace OpenGL_Game.Managers
     {
         Stopwatch mPlayerHurtTimer;
         Camera mPlayerCamera;
+        List<Entity> mNodes;
         public GameCollisionManager(EntityManager pEntityManager, Camera pCamera) : base(pEntityManager)
         {
             mPlayerHurtTimer = new Stopwatch();
             mPlayerHurtTimer.Start();
             mPlayerCamera = pCamera;
 
+            mNodes = new List<Entity>();
+            foreach (Entity e in pEntityManager.Entities())
+            {
+                if(e.Name.Contains("node"))
+                {
+                    mNodes.Add(e);
+                }
+            }
         }
 
         public override void ProcessCollision()
@@ -61,6 +70,10 @@ namespace OpenGL_Game.Managers
             else if (pEntity2.Name.Contains("player") && pEntity1.Name.Contains("enemy"))
             {
                 DealDamage(pEntity2, pEntity1);
+            }
+            else if(pEntity2.Name.Contains("node") && pEntity1.Name.Contains("enemy"))
+            {
+                MoveNode(pEntity2, pEntity1);
             }
         }
 
@@ -270,6 +283,47 @@ namespace OpenGL_Game.Managers
                 return component.ComponentType == ComponentTypes.COMPONENT_COLLISION_SQUARE;
             });
             square = (ComponentCollisionSquare)collisionComponent;
+        }
+
+        private IComponent GetComponent(ComponentTypes pComponentType, Entity pEntity)
+        {
+            IComponent entityComponent = pEntity.Components.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == pComponentType;
+            });
+            IComponent returnComponent = (IComponent)entityComponent;
+
+            return returnComponent;
+        }
+
+        private void MoveNode(Entity pNode, Entity pEnemy)
+        {
+            int currentNodeIndex = int.Parse(pNode.Name.Split(' ')[1]);
+            int nextNodeIndex = 0;
+
+            if(currentNodeIndex == 0)
+            {
+                nextNodeIndex = mNodes.Count - 1;
+            }
+            else
+            {
+                nextNodeIndex = currentNodeIndex - 1;
+            }
+
+            ComponentPosition currentNodePos = (ComponentPosition)GetComponent(ComponentTypes.COMPONENT_POSITION, pNode);
+            ComponentPosition otherNodePos = (ComponentPosition)GetComponent(ComponentTypes.COMPONENT_POSITION, mNodes[nextNodeIndex]);
+
+            ComponentVelocity enemyVel = (ComponentVelocity)GetComponent(ComponentTypes.COMPONENT_VELOCITY, pEnemy);
+
+            if(enemyVel == null)
+            {
+                return;
+            }
+
+            Vector3 dist = otherNodePos.Position - currentNodePos.Position;
+            dist.Normalize();
+
+            enemyVel.Velocity = dist;
         }
     }
 }
