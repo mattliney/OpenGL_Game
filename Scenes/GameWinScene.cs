@@ -7,9 +7,9 @@ using OpenGL_Game.Managers;
 
 namespace OpenGL_Game.Scenes
 {
-    class GameOverScene : Scene
+    class GameWinScene : Scene
     {
-        public GameOverScene(SceneManager sceneManager) : base(sceneManager)
+        public GameWinScene(SceneManager sceneManager) : base(sceneManager)
         {
             // Set the title of the window
             sceneManager.Title = "Game Over";
@@ -37,7 +37,7 @@ namespace OpenGL_Game.Scenes
 
             //Display the Title
             float width = sceneManager.Width, height = sceneManager.Height, fontSize = Math.Min(width, height) / 20f;
-            Image menuImage = GUI.CreateImage("Images/badend.png");
+            Image menuImage = GUI.CreateImage("Images/placeholder.png");
             GUI.ImageDraw(menuImage, 1250, 800, -120, -341, 0);
 
             GUI.Render();

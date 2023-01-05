@@ -75,7 +75,7 @@ namespace OpenGL_Game.Managers
 
                 if (commandInstruction == "SHOOT") { Shoot(pCamera); }
 
-                if (commandInstruction == "DEBUG") { EnterDebugMode(pCamera); }
+                if (commandInstruction == "WALLTOGGLE") { WallCollisionToggle(pCamera); }
             }
             else if(commandType == "SCENE")
             {
@@ -84,6 +84,8 @@ namespace OpenGL_Game.Managers
                 if (commandInstruction == "OVER") { pSceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER); }
 
                 if (commandInstruction == "GAME") { pSceneManager.ChangeScene(SceneTypes.SCENE_GAME); }
+
+                //if (commandInstruction == "AIOFF") { pSceneManager.mDebugMode = !pSceneManager.mDebugMode;  }
             }
         }
 
@@ -203,7 +205,7 @@ namespace OpenGL_Game.Managers
             }
         }
 
-        private void EnterDebugMode(Camera pCamera)
+        private void WallCollisionToggle(Camera pCamera)
         {
             if(mDebugCooldown.ElapsedMilliseconds >= 300)
             {

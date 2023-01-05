@@ -37,6 +37,7 @@ namespace OpenGL_Game.Scenes
         Image mPlayerImage;
         Image mHealthImage;
         Image mEnemiesLeftImage;
+        Image mCrosshair;
 
         public GameScene(SceneManager sceneManager, int pPlayerHealth) : base(sceneManager)
         {
@@ -88,11 +89,12 @@ namespace OpenGL_Game.Scenes
         private void CreateImages()
         {
             mMapImage = GUI.CreateImage("Images/map.png");
-            mEnemiesLeftImage = GUI.CreateImage("Images/skull.png");
+            mEnemiesLeftImage = GUI.CreateImage("Images/skull2.png");
             mHealthImage = GUI.CreateImage("Images/heart.png");
             mPowerUpImage = GUI.CreateImage("Images/pumpkin.png");
             mEnemyImage = GUI.CreateImage("Images/enemy.png");
             mPlayerImage = GUI.CreateImage("Images/playerImage.png");
+            mCrosshair = GUI.CreateImage("Images/crosshair.png");
         }
 
         private void CreateSystems()
@@ -129,6 +131,7 @@ namespace OpenGL_Game.Scenes
             GetSceneEntityInfo(out mPlayerHealth, out mDroneCount);
             if(mPlayerHealth <= 0)
             {
+                mPlayerHealth = 3;
                 sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
             }
             else if(mPlayerHealth < mCurrentPlayerHealth)
@@ -138,7 +141,7 @@ namespace OpenGL_Game.Scenes
             }
             else if(mDroneCount <= 0)
             {
-                sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
+                sceneManager.ChangeScene(SceneTypes.SCENE_GAME_WIN);
             }
 
             sceneManager.inputManager.ProcessInputs(sceneManager, camera, entityManager);
@@ -164,15 +167,15 @@ namespace OpenGL_Game.Scenes
             float width = sceneManager.Width, height = sceneManager.Height, fontSize = Math.Min(width, height) / 10f;
             GUI.clearColour = Color.Transparent;
 
-            GUI.Label(new Rectangle(25, 25, (int)width, (int)(fontSize * 2f)), "Health: ", 18, StringAlignment.Near, Color.White);;
-            for (int i = 0; i < mPlayerHealth; i++) { GUI.ImageDraw(mHealthImage, 100, 100, 100 + (i * 65), -20, 0); }
+            GUI.ImageDraw(mCrosshair, 100, 100, 550, 350, 0);
 
+            GUI.Label(new Rectangle(0, 25, (int)width, (int)(fontSize * 2f)), "Health: ", 18, StringAlignment.Near, Color.White);;
+            for (int i = 0; i < mPlayerHealth; i++) { GUI.ImageDraw(mHealthImage, 100, 100, 130 + (i * 65), -30, 0); }
             GUI.Label(new Rectangle(0, 90, (int)width, (int)(fontSize * 2f)), "Enemies Left: ", 18, StringAlignment.Near, Color.White); ;
-            for (int i = 0; i < mDroneCount; i++) { GUI.ImageDraw(mEnemiesLeftImage, 100, 100, 130 + (i * 65), 35, 0); }
+            for (int i = 0; i < mDroneCount; i++) { GUI.ImageDraw(mEnemiesLeftImage, 64, 64, 160 + (i * 65), 60, 0); }
 
-            GUI.Label(new Rectangle(0, 120, (int)width, (int)(fontSize * 2f)), "X: " + mPlayerX, 18, StringAlignment.Near, Color.White); ;
-            
-            GUI.Label(new Rectangle(0, 150, (int)width, (int)(fontSize * 2f)), "Z: " + mPlayerZ, 18, StringAlignment.Near, Color.White); ;
+            //GUI.Label(new Rectangle(0, 140, (int)width, (int)(fontSize * 2f)), "X: " + mPlayerX, 18, StringAlignment.Near, Color.White); ;
+            //GUI.Label(new Rectangle(0, 190, (int)width, (int)(fontSize * 2f)), "Z: " + mPlayerZ, 18, StringAlignment.Near, Color.White); ;
 
             DrawMap();
 
@@ -187,9 +190,11 @@ namespace OpenGL_Game.Scenes
             {
                 ComponentPosition pos = (ComponentPosition)GetComponent(ComponentTypes.COMPONENT_POSITION, e);
                 Vector3 position = -pos.Position;
+                Vector3 baseVector = new Vector3(0, 0, -1);
 
                 int xOffset;
                 int zOffset;
+                float angle;
 
                 float xPos = position.X * 14;
                 float zPos = position.Z * 14;
@@ -198,9 +203,8 @@ namespace OpenGL_Game.Scenes
                 {
                     xOffset = 990;
                     zOffset = 620;
-                    Vector3 baseVector = new Vector3(0, 0, -1);
                     Vector3 direction = -camera.cameraDirection;
-                    float angle = Vector3.CalculateAngle(baseVector, direction);
+                    angle = Vector3.CalculateAngle(baseVector, direction);
                     angle = MathHelper.RadiansToDegrees(angle);
 
                     if (direction.X < 0)
@@ -218,9 +222,19 @@ namespace OpenGL_Game.Scenes
                 }
                 else if (e.Name.Contains("enemy"))
                 {
+                    ComponentVelocity vel = (ComponentVelocity)GetComponent(ComponentTypes.COMPONENT_VELOCITY, e);
+                    Vector3 velocity = -vel.Velocity;
+                    angle = Vector3.CalculateAngle(baseVector, velocity);
+                    angle = MathHelper.RadiansToDegrees(angle);
+
+                    if (velocity.X < 0)
+                    {
+                        angle = -angle;
+                    }
+
                     xOffset = 1000;
                     zOffset = 630;
-                    GUI.ImageDraw(mEnemyImage, 32, 32, (int)xPos + xOffset, (int)zPos + zOffset, 0);
+                    GUI.ImageDraw(mEnemyImage, 32, 32, (int)xPos + xOffset, (int)zPos + zOffset, angle);
                 }
             }
         }
