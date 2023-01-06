@@ -12,11 +12,15 @@ namespace OpenGL_Game.Managers
         {
         }
 
-        public void ActionSystems(EntityManager entityManager)
+        public void ActionSystems(EntityManager entityManager, bool pAIOff)
         {
             List<Entity> entityList = entityManager.Entities();
             foreach(ISystem system in systemList)
             {
+                if(pAIOff && system.Name == "SystemPhysics")
+                {
+                    continue;
+                }
                 system.OnAction(entityList);
             }
         }

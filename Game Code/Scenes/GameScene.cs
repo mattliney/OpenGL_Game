@@ -162,7 +162,7 @@ namespace OpenGL_Game.Scenes
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             // Action ALL systems
-            systemManager.ActionSystems(entityManager);
+            systemManager.ActionSystems(entityManager, sceneManager.mAIToggle);
 
             float width = sceneManager.Width, height = sceneManager.Height, fontSize = Math.Min(width, height) / 10f;
             GUI.clearColour = Color.Transparent;

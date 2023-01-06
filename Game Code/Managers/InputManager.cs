@@ -85,7 +85,7 @@ namespace OpenGL_Game.Managers
 
                 if (commandInstruction == "GAME") { pSceneManager.ChangeScene(SceneTypes.SCENE_GAME); }
 
-                //if (commandInstruction == "AIOFF") { pSceneManager.mDebugMode = !pSceneManager.mDebugMode;  }
+                if (commandInstruction == "AIOFF") { AIToggle(pSceneManager); }
             }
         }
 
@@ -211,6 +211,15 @@ namespace OpenGL_Game.Managers
             {
                 mDebugCooldown.Restart();
                 pCamera.mDebugMode = !pCamera.mDebugMode;
+            }
+        }
+
+        private void AIToggle(SceneManager pSceneManager)
+        {
+            if (mDebugCooldown.ElapsedMilliseconds >= 300)
+            {
+                mDebugCooldown.Restart();
+                pSceneManager.mAIToggle = !pSceneManager.mAIToggle;
             }
         }
     }

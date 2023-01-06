@@ -31,9 +31,11 @@ namespace OpenGL_Game.Managers
         public AudioContext audioContext;
 
         public int mPlayerHealth; // It is necessary to store this variable here because the game scene restarts on hit
+        public bool mAIToggle;
 
         public SceneManager() : base(width, height, new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(8, 8, 8, 8), 16))
         {
+            mAIToggle = false;
             audioContext = new AudioContext();
             this.X = windowXPos;
             this.Y = windowYPos;

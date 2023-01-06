@@ -90,7 +90,7 @@
     <Compile Include="Game Code\Components\ComponentShaderNoLights.cs" />
     <Compile Include="Game Code\Components\ComponentShaderDefault.cs" />
     <Compile Include="Engine Code\Components\ComponentCollisionSphere.cs" />
-    <Compile Include="Game Code\Components\ComponentVelocity.cs" />
+    <Compile Include="Engine Code\Components\ComponentVelocity.cs" />
     <Compile Include="Game Code\Managers\GameCollisionManager.cs" />
     <Compile Include="Engine Code\Managers\CollisionManager.cs" />
     <Compile Include="Game Code\Managers\InputManager.cs" />
