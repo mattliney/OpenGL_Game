@@ -93,7 +93,7 @@
     <Compile Include="Engine Code\Components\ComponentVelocity.cs" />
     <Compile Include="Game Code\Managers\GameCollisionManager.cs" />
     <Compile Include="Engine Code\Managers\CollisionManager.cs" />
-    <Compile Include="Game Code\Managers\InputManager.cs" />
+    <Compile Include="Game Code\Managers\GameInputManager.cs" />
     <Compile Include="Game Code\Managers\GameScriptManager.cs" />
     <Compile Include="Engine Code\Managers\ScriptManager.cs" />
     <Compile Include="Engine Code\OBJLoader\CjClutter.ObjLoader.Loader\Common\StringExtensions.cs" />
@@ -148,6 +148,7 @@
     <Compile Include="Engine Code\Managers\EntityManager.cs" />
     <Compile Include="Engine Code\OBJLoader\Geometry.cs" />
     <Compile Include="Engine Code\Components\IComponent.cs" />
+    <Compile Include="Engine Code\Managers\InputManager.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine Code\Managers\ResourceManager.cs" />

@@ -26,7 +26,7 @@ namespace OpenGL_Game.Managers
         public delegate void MouseDelegate(MouseButtonEventArgs e);
         public MouseDelegate mouseDelegate;
 
-        public InputManager inputManager = new InputManager();
+        public GameInputManager inputManager = new GameInputManager();
         public CollisionManager collisionManager;
         public AudioContext audioContext;
 

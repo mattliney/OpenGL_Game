@@ -8,24 +8,22 @@ using System.Collections.Generic;
 using OpenGL_Game.Objects;
 using OpenGL_Game.Components;
 using System.Diagnostics;
+using OpenGL_Game.Managers;
+using OpenGL_Game.Game_Code.Managers;
 
 namespace OpenGL_Game.Managers
 {
-    class InputManager
+    class GameInputManager : InputManager
     {
-        Dictionary<Key, string> keyboardBinds = new Dictionary<Key, string>();
-        Dictionary<MouseButton, string> mouseBinds = new Dictionary<MouseButton, string>();
-
         EntityManager mEntityManager;
 
         Stopwatch mShootCooldown;
         Stopwatch mDebugCooldown;
-        Entity mBullet;
         int mBulletIndex;
 
         float mSpeed;
 
-        public InputManager() 
+        public GameInputManager() 
         {
             mBulletIndex = 0; 
             mShootCooldown = new Stopwatch();
@@ -34,7 +32,7 @@ namespace OpenGL_Game.Managers
             mDebugCooldown.Start();
         }
 
-        public void ProcessInputs(SceneManager pSceneManager, Camera pCamera, EntityManager pEntityManager)
+        public override void ProcessInputs(SceneManager pSceneManager, Camera pCamera, EntityManager pEntityManager)
         {
             KeyboardState ks = Keyboard.GetState();
             MouseState ms = Mouse.GetState();
@@ -58,7 +56,7 @@ namespace OpenGL_Game.Managers
 
         }
 
-        private void HandleInput(string pValue, Camera pCamera, SceneManager pSceneManager)
+        protected override void HandleInput(string pValue, Camera pCamera, SceneManager pSceneManager)
         {
             string commandType = pValue.Split('_')[0];
             string commandInstruction = pValue.Split('_')[1];
