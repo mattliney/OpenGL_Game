@@ -17,18 +17,6 @@ namespace OpenGL_Game.Scenes
     /// </summary>
     class GameScene : Scene
     {
-        public static float dt = 0;
-        EntityManager entityManager;
-        SystemManager systemManager;
-        GameScriptManager gameScriptManager;
-        int mDroneCount;
-        int mPlayerHealth;
-        int mCurrentPlayerHealth;
-        public Camera camera;
-        int mPlayerX;
-        int mPlayerZ;
-
-        public static GameScene gameInstance;
 
         //Map Variables
         Image mMapImage;
@@ -38,6 +26,19 @@ namespace OpenGL_Game.Scenes
         Image mHealthImage;
         Image mEnemiesLeftImage;
         Image mCrosshair;
+        EntityManager entityManager;
+        SystemManager systemManager;
+        GameScriptManager gameScriptManager;
+        public Camera camera;
+        public static GameScene gameInstance;
+
+        public static float dt = 0;
+        int mDroneCount;
+        int mPlayerHealth;
+        int mCurrentPlayerHealth;
+        int mPlayerX;
+        int mPlayerZ;
+
 
         public GameScene(SceneManager sceneManager, int pPlayerHealth) : base(sceneManager)
         {
@@ -131,7 +132,7 @@ namespace OpenGL_Game.Scenes
             GetSceneEntityInfo(out mPlayerHealth, out mDroneCount);
             if(mPlayerHealth <= 0)
             {
-                mPlayerHealth = 3;
+                sceneManager.mPlayerHealth = 3;
                 sceneManager.ChangeScene(SceneTypes.SCENE_GAME_OVER);
             }
             else if(mPlayerHealth < mCurrentPlayerHealth)
@@ -182,6 +183,8 @@ namespace OpenGL_Game.Scenes
             GUI.Render();
         }
 
+
+        // Draws the map on screen. Offset is needed for player and enemy movement. Converts their movement to distance in screen space.
         private void DrawMap()
         {
             GUI.ImageDraw(mMapImage, 300, 300, 835, 440, 0);

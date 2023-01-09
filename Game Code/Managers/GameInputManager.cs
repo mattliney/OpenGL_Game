@@ -15,13 +15,15 @@ namespace OpenGL_Game.Managers
 {
     class GameInputManager : InputManager
     {
+        // Stopwatches are needed for certain inputs.
+        // Stops from processing several inputs with a single press.
+        // That would be bad and stuff.
         EntityManager mEntityManager;
-
         Stopwatch mShootCooldown;
         Stopwatch mDebugCooldown;
-        int mBulletIndex;
 
         float mSpeed;
+        int mBulletIndex;
 
         public GameInputManager() 
         {
@@ -37,6 +39,8 @@ namespace OpenGL_Game.Managers
             KeyboardState ks = Keyboard.GetState();
             MouseState ms = Mouse.GetState();
             mEntityManager = pEntityManager;
+
+            // Detects what key is being pressed. Response below.
 
             foreach (KeyValuePair<Key, string> kvp in keyboardBinds)
             {
@@ -55,6 +59,9 @@ namespace OpenGL_Game.Managers
             }
 
         }
+
+        // Responds based on the instructions (strings) the scene changes or camera moves
+        // Also where debug is toggled.
 
         protected override void HandleInput(string pValue, Camera pCamera, SceneManager pSceneManager)
         {
@@ -103,6 +110,8 @@ namespace OpenGL_Game.Managers
             mouseBinds = new Dictionary<MouseButton, string>();
         }
 
+        // This method is complicated but it makes it so you can make an easy to read/ write list of controls.
+        // See the controls file ->
         public void ReadFromFile(string pFileName)
         {
             StreamReader sr = new StreamReader(pFileName);
@@ -161,6 +170,8 @@ namespace OpenGL_Game.Managers
                 }
             }
         }
+
+        // Creates a copy of the base bullet and shoots it off.
 
         public void Shoot(Camera pCamera)
         {

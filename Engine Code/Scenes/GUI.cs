@@ -16,14 +16,12 @@ namespace OpenGL_Game.Scenes
             set { }
         }//Stop outside scripts from changing GUI
 
-        static private int textTexture;//The location of the texture on the graphics card
         static private Graphics textGFX;//Used to adjust the textBMP bitmap
-
-        static private int m_width, m_height;
+        static public Color clearColour = Color.CornflowerBlue;
         static public Vector2 guiPosition = Vector2.Zero;
 
-        static public Color clearColour = Color.CornflowerBlue;
-
+        static private int m_width, m_height;
+        static private int textTexture;//The location of the texture on the graphics card
         //Called by SceneManager onLoad, and when screen size is changed
         public static void SetUpGUI(int width, int height)
         {

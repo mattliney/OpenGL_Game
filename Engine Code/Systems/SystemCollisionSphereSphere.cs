@@ -14,8 +14,8 @@ namespace OpenGL_Game.Systems
 {
     class SystemCollisionSphereSphere : ISystem
     {
-        const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_COLLISION_SPHERE);
         CollisionManager mCollisionManager;
+        const ComponentTypes MASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_COLLISION_SPHERE);
 
         public SystemCollisionSphereSphere(CollisionManager pCM)
         {
@@ -70,6 +70,7 @@ namespace OpenGL_Game.Systems
             ComponentCollisionSphere entity2Sphere;
             RetrieveComponents(pEntity2.Components, out entity2Position, out entity2Sphere);
 
+            //The calculation for sphere collision. The distance should be greater than the radius combined.
             if ((entity1Position.Position - entity2Position.Position).Length < entity1Sphere.Radius + entity2Sphere.Radius)
             {
                 mCollisionManager.RegisterCollision(pEntity1, pEntity2, COLLISION_TYPE.SPHERE_SPHERE);

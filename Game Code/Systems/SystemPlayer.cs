@@ -13,9 +13,12 @@ namespace OpenGL_Game.Systems
 {
     class SystemPlayer : ISystem
     {
-        const ComponentTypes MASK = ComponentTypes.COMPONENT_POSITION;
-        static string mPlayerName = "player";
+        // Updates the position of the player based on the camera.
+        // Also makes the skybox move with the player (essentially making it appear to not move)
+
         Camera mCamera;
+        static string mPlayerName = "player";
+        const ComponentTypes MASK = ComponentTypes.COMPONENT_POSITION;
 
         public SystemPlayer(Camera pCamera)
         {

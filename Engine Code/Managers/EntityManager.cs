@@ -36,6 +36,8 @@ namespace OpenGL_Game.Managers
             {
                 if (c.ComponentType == ComponentTypes.COMPONENT_AUDIO)
                 {
+                    //Necessary for powerup collection.
+                    //Looping audio will not stop when the entity is removed, therefore it has to be done here.
                     ComponentAudio ca = (ComponentAudio)c;
                     if(ca.mIsLooping)
                     {

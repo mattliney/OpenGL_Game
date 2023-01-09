@@ -14,9 +14,9 @@ namespace OpenGL_Game.Systems
 {
     class SystemCollisionSphereSquare : ISystem
     {
+        CollisionManager mCollisionManager;
         const ComponentTypes SPHEREMASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_COLLISION_SPHERE);
         const ComponentTypes SQUAREMASK = (ComponentTypes.COMPONENT_POSITION | ComponentTypes.COMPONENT_COLLISION_SQUARE);
-        CollisionManager mCollisionManager;
 
         public SystemCollisionSphereSquare(CollisionManager pCM)
         {
@@ -61,6 +61,7 @@ namespace OpenGL_Game.Systems
             if (xDistance >= (entity2Square.Width + entity1Sphere.Radius)) { return; } //no collision... sorry!
             if (zDistance >= (entity2Square.Depth + entity1Sphere.Radius)) { return; }
 
+            //The direction the sphere is coming from is handled in the manager.
             mCollisionManager.RegisterCollision(pEntity1, pEntity2, COLLISION_TYPE.SPHERE_SQUARE);
         }
 

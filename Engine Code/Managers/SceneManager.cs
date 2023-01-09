@@ -10,11 +10,6 @@ namespace OpenGL_Game.Managers
 {
     class SceneManager : GameWindow
     {
-        Scene scene;
-        SceneTypes sceneType = SceneTypes.SCENE_NONE;
-        public static int width = 1200, height = 800;
-        public static int windowXPos = 200, windowYPos = 80;
-
         public delegate void SceneDelegate(FrameEventArgs e);
         public SceneDelegate renderer;
         public SceneDelegate updater;
@@ -29,6 +24,11 @@ namespace OpenGL_Game.Managers
         public GameInputManager inputManager = new GameInputManager();
         public CollisionManager collisionManager;
         public AudioContext audioContext;
+
+        Scene scene;
+        SceneTypes sceneType = SceneTypes.SCENE_NONE;
+        public static int width = 1200, height = 800;
+        public static int windowXPos = 200, windowYPos = 80;
 
         public int mPlayerHealth; // It is necessary to store this variable here because the game scene restarts on hit
         public bool mAIToggle;

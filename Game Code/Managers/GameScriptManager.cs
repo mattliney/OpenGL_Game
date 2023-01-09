@@ -46,6 +46,9 @@ namespace OpenGL_Game.Managers
             }
         }
 
+        // Creates Components based on the names. Parses the lines for the component parameters
+        // Pretty easy to understand.
+
         override protected void ParseLine(string pLine, Entity pEntity)
         {
             string[] splitLine = pLine.Split('=');

@@ -13,9 +13,10 @@ namespace OpenGL_Game.Managers
 {
     public class GameCollisionManager : CollisionManager
     {
+        List<Entity> mNodes;
         Stopwatch mPlayerHurtTimer;
         Camera mPlayerCamera;
-        List<Entity> mNodes;
+
         public GameCollisionManager(EntityManager pEntityManager, Camera pCamera) : base(pEntityManager)
         {
             mPlayerHurtTimer = new Stopwatch();
@@ -23,6 +24,8 @@ namespace OpenGL_Game.Managers
             mPlayerCamera = pCamera;
 
             mNodes = new List<Entity>();
+
+            // Collects nodes needed for AI response.
             foreach (Entity e in pEntityManager.Entities())
             {
                 if(e.Name.Contains("node"))
@@ -49,6 +52,9 @@ namespace OpenGL_Game.Managers
             ClearManifold();
         }
 
+        // Handles the response for spheres.
+        // Here, the powerup collection is done getting the name.
+        // AI response is handled here too.
         public void SphereSphere(Entity pEntity1, Entity pEntity2)
         {
             if(pEntity2.Name == "HealthPowerUp" && pEntity1.Name == "player")
@@ -99,6 +105,10 @@ namespace OpenGL_Game.Managers
             float xDistance = Math.Abs(entity1Position.Position.X - entity2Position.Position.X);
             float zDistance = Math.Abs(entity1Position.Position.Z - entity2Position.Position.Z);
 
+            // In order to respond correctly to wall collision, it is necessary to know what side you are touching.
+            // Here you can see the calculations. The outer if statements represent the collision on the x or z axis.
+            // Within that, you can see the specific sides of the cube (the directions are arbitrary)
+
             if (xDistance < (entity2Square.Width))
             {
                 if (entity1Position.Position.Z > entity2Position.Position.Z) // right
@@ -124,6 +134,10 @@ namespace OpenGL_Game.Managers
                 }
             }
         }
+
+        // Beware! The land of delgating methods.
+        // Very specific responses are done here.
+        // There's a lot.
 
         private void HealthPowerUpCollect(Entity pEntityPlayer, Entity pEntityPowerUp)
         {

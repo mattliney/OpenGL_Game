@@ -7,10 +7,10 @@ namespace OpenGL_Game.Objects
 {
     public class Entity
     {
-        string name;
         List<IComponent> componentList = new List<IComponent>();
         ComponentTypes mask;
- 
+        string name;
+
         public Entity(string name)
         {
             this.name = name;

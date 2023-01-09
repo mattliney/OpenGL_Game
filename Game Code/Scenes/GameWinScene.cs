@@ -37,7 +37,7 @@ namespace OpenGL_Game.Scenes
 
             //Display the Title
             float width = sceneManager.Width, height = sceneManager.Height, fontSize = Math.Min(width, height) / 20f;
-            Image menuImage = GUI.CreateImage("Images/placeholder.png");
+            Image menuImage = GUI.CreateImage("Images/goodend.png");
             GUI.ImageDraw(menuImage, 1250, 800, -120, -341, 0);
 
             GUI.Render();

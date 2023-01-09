@@ -36,15 +36,18 @@ namespace OpenGL_Game.Managers
             mCollisionManifold.Clear();
         }
 
+        //Adds collisions to manifold. Responds in GameCollisionManager
         public void RegisterCollision(Entity pEntity1, Entity pEntity2, COLLISION_TYPE pCollisionType)
         {
             foreach(Collision c in mCollisionManifold)
             {
+                //Checks to see if the collision is already in the manifold.
+                //It is necessary to do it in reverse or the collisions will register twice (not ideal)
                 if(c.entity1 == pEntity1 && c.entity2 == pEntity2)
                 {
                     return;
                 }
-                else if(c.entity2 == pEntity1 && c.entity1 == pEntity2)
+                else if(c.entity2 == pEntity1 && c.entity1 == pEntity2) 
                 {
                     return;
                 }

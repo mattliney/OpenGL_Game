@@ -48,6 +48,8 @@ namespace OpenGL_Game.Systems
 
                     if(audioComponents.Count > 1)
                     {
+                        //Audio that has to loop will only be played once.
+                        //It is necessary to play it in the system as looping audio plays ambiently.
                         SetPosition(position, audioComponents[0]);
                         if(audioComponents[1].mIsLooping && !audioComponents[1].mIsPlaying)
                         {
